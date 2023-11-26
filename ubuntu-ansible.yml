@@ -7,10 +7,7 @@
     shell: chsh -s `which zsh`
 
   - name: Install Oh My Zsh # noqa: latest
-    ansible.builtin.git:
-      repo: https://github.com/ohmyzsh/ohmyzsh.git
-      dest: ~/.oh-my-zsh
-      depth: 1
+    shell: sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
   - name: Install zsh-autosuggestions plugin # noqa: latest
     ansible.builtin.git:
