@@ -30,5 +30,5 @@
 
 # Add plugins in to the .zshrc file (Junkie - probally should have a .zshrc in this repo)
 - name: Add plugins name to the .zshrc file
-  shell: sed -i 's/(git/(git zsh-autosuggestions zsh-systax-highlighting zinit light zsh-completions/' ~/.zshrc
+  shell: sed -i 's/(git/(git zsh-autosuggestions zsh-systax-highlighting/' ~/.zshrc
   tags: *tags_for_zsh_tasks
