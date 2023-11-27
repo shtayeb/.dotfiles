@@ -1,8 +1,9 @@
 - hosts: localhost
-  become:true
+  become: true
   pre_tasks:
     - name: Update Cache
-      apt: update_cache:yes
+      apt: 
+        update_cache: yes
 
   tasks:
     - name: Install zsh
