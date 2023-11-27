@@ -38,3 +38,21 @@
   tags:
     - install
     - neovim
+
+# Install NerdFont Jebrains Mono
+- name: ensure fonts directory
+  file:
+    path: "{{ lookup('env', 'HOME') }}/.fonts"
+    state: directory
+
+- name: Hack exists
+  shell: "ls {{ lookup('env', 'HOME') }}/.fonts/JetBrainsMono*"
+  register: hack_exists
+  ignore_errors: yes
+
+- name: Download Hack
+  when: hack_exists is failed
+  ansible.builtin.unarchive:
+    src: https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/JetBrainsMono.zip
+    dest: "{{ lookup('env', 'HOME') }}/.fonts/"
+    remote_src: yes
