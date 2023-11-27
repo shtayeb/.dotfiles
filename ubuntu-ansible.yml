@@ -6,56 +6,5 @@
         update_cache: yes
 
   tasks:
-    - name: Install zsh
-      apt: name=zsh
-      tags:
-        - zsh
-    - name: Change shell
-      shell: chsh -s $(which zsh)
-      tags:
-        - zsh
-
-    - name: Install Oh My Zsh # noqa: latest
-      shell: sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
-      tags:
-        - zsh
-
-    - name: Install zsh-autosuggestions plugin # noqa: latest
-      ansible.builtin.git:
-        repo: https://github.com/zsh-users/zsh-autosuggestions
-        dest: ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
-      tags:
-        - zsh
-
-    - name: Install zsh-completions plugin # noqa: latest
-      ansible.builtin.git:
-        repo: https://github.com/zsh-users/zsh-completions
-        dest: ~/.oh-my-zsh/custom/plugins/zsh-completions
-      tags:
-        - zsh
-
-    - name: Install zsh-syntax-highlighting plugin # noqa: latest
-      ansible.builtin.git:
-        repo: https://github.com/zsh-users/zsh-syntax-highlighting.git
-        dest: ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
-      tags:
-        - zsh
-
-    - name: Install Node
-      apt:
-        name: ["nodejs", "npm"]
-      tags:
-        - node
-
-    - name: Install n
-      npm:
-        name: n
-        global: true
-      tags:
-        - node
-
-    - name: node v latest
-      shell: n latest
-      tags:
-        - node
-# Primegen ansible repo
+    - include: ansible_tasks/zsh-setup.yml
+    - include: ansible_tasks/node-setup.yml
