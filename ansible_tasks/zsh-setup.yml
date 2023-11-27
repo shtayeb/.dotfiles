@@ -1,35 +1,34 @@
 - name: Install zsh
   apt: name=zsh
-  tags:
-    - zsh
+  tags: &tags_for_zsh_tasks ["install", "productivity", "zsh"]
 
 - name: Change shell
   shell: chsh -s $(which zsh)
-  tags:
-    - zsh
+  tags: *tags_for_zsh_tasks
 
 - name: Install Oh My Zsh # noqa: latest
   shell: sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
-  tags:
-    - zsh
+  tags: *tags_for_zsh_tasks
 
 - name: Install zsh-autosuggestions plugin # noqa: latest
   ansible.builtin.git:
     repo: https://github.com/zsh-users/zsh-autosuggestions
     dest: ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
-  tags:
-    - zsh
+  tags: *tags_for_zsh_tasks
 
 - name: Install zsh-completions plugin # noqa: latest
   ansible.builtin.git:
     repo: https://github.com/zsh-users/zsh-completions
     dest: ~/.oh-my-zsh/custom/plugins/zsh-completions
-  tags:
-    - zsh
+  tags: *tags_for_zsh_tasks
 
 - name: Install zsh-syntax-highlighting plugin # noqa: latest
   ansible.builtin.git:
     repo: https://github.com/zsh-users/zsh-syntax-highlighting.git
     dest: ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
-  tags:
-    - zsh
+  tags: *tags_for_zsh_tasks
+
+# Add plugins in to the .zshrc file (Junkie - probally should have a .zshrc in this repo)
+- name: Add plugins name to the .zshrc file
+  shell: sed -i 's/(git/(git zsh-autosuggestions zsh-systax-highlighting zinit light zsh-users/zsh-completions' ~/.zshrc
+  tags: *tags_for_zsh_tasks

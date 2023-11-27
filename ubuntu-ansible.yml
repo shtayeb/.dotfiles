@@ -6,5 +6,12 @@
         update_cache: yes
 
   tasks:
+    - include: ansible_tasks/core-setup.yml
+    - include: ansible_tasks/git-setup.yml
     - include: ansible_tasks/zsh-setup.yml
     - include: ansible_tasks/node-setup.yml
+    - include: ansible_tasks/npm-packages.yml
+    - include: ansible_tasks/nvim-setup.yml
+    - include: ansible_tasks/productivity-tools.yml
+    - include: ansible_tasks/git-setup.yml
+    - include: ansible_tasks/gui-tools.yml

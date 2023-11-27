@@ -3,6 +3,7 @@
     name: ["nodejs", "npm"]
   tags:
     - node
+    - install
 
 - name: Install n
   npm:
@@ -10,8 +11,10 @@
     global: true
   tags:
     - node
+    - install
 
 - name: node v latest
   shell: n latest
   tags:
     - node
+    - install
