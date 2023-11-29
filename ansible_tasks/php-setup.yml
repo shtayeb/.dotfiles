@@ -1,0 +1,75 @@
+# PHP
+- name: Installation install software-properties-common
+  apt: name=software-properties-common
+  tags:
+    - php
+
+- name: "Repo PHP 8.2"
+  apt_repository:
+    repo="ppa:ondrej/php"
+  tags:
+    - php
+
+- name: "Updating the repo"
+  apt: update_cache=yes
+  tags:
+    - php
+
+- name: Installation PHP 8.2
+  apt: name=php8.2 state=present
+  tags:
+    - php
+
+- name: install lamp stack
+  apt:
+    pkg:
+      - php8.2-mysql
+      - php8.2-curl
+      - php8.2-json
+      - php8.2-cgi
+      - php8.2-xsl
+      - php8.2-cgi
+      - php8.2-gd
+      - php8.2-mbstring
+      - php8.2-zip
+      - php8.2-xmlrpc
+      - php8.2-soap
+      - php8.2-intl
+      - libapache2-mod-php
+    state: present
+    update_cache: yes 
+  tags:
+    - php
+# Composer
+- name: Composer | Grab release information
+  uri:
+    url: https://getcomposer.org/versions
+    body_format: json
+  register: composer_releases
+  tags:
+    - php
+
+- set_fact:
+    composer_version: '{{ composer_releases.json.stable.0.version }}'
+    composer_download_url: 'https://getcomposer.org{{ composer_releases.json.stable.0.path }}'
+  when: not ansible_check_mode # composer_releases is not registered
+  tags:
+    - php
+
+- name: Composer | Install Composer {{ composer_version }}
+  get_url:
+    url: '{{ composer_download_url }}'
+    dest: /usr/local/bin/composer.phar
+    mode: 0755
+  when: not ansible_check_mode # composer_releases is not registered
+  tags:
+    - php
+
+- name: Composer | Symlink composer.phar
+  file:
+    src: composer.phar
+    dest: /usr/local/bin/composer
+    state: link
+  when: not ansible_check_mode # composer_releases is not registered
+  tags:
+  - php
