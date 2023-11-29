@@ -1,4 +1,7 @@
 # PHP
+vars:
+  composer_url: https://getcomposer.org/download/latest-stable/composer.phar
+
 - name: Installation install software-properties-common
   apt: name=software-properties-common
   tags:
@@ -41,27 +44,14 @@
   tags:
     - php
 # Composer
-- name: Composer | Grab release information
-  uri:
-    url: https://getcomposer.org/versions
-    body_format: json
-  register: composer_releases
-  tags:
-    - php
-
-- set_fact:
-    composer_version: '{{ composer_releases.json.stable.0.version }}'
-    composer_download_url: 'https://getcomposer.org{{ composer_releases.json.stable.0.path }}'
-  when: not ansible_check_mode # composer_releases is not registered
-  tags:
-    - php
-
-- name: Composer | Install Composer {{ composer_version }}
+# Install Composer the lightweight way (without using installer)
+# https://getcomposer.org/download
+- name: Composer | Install Composer latest-stable
   get_url:
-    url: '{{ composer_download_url }}'
+    url: '{{ composer_url }}'
+    checksum: 'sha256:{{ composer_url }}.sha256sum'
     dest: /usr/local/bin/composer.phar
     mode: 0755
-  when: not ansible_check_mode # composer_releases is not registered
   tags:
     - php
 
@@ -70,6 +60,5 @@
     src: composer.phar
     dest: /usr/local/bin/composer
     state: link
-  when: not ansible_check_mode # composer_releases is not registered
   tags:
-  - php
+    - php
