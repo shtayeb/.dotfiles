@@ -4,6 +4,11 @@
     - name: Update Cache
       apt:
         update_cache: yes
+        update_cache: true
+        state: present
+    tags:
+      - install
+      - core
 
   tasks:
     - include: ansible_tasks/core-setup.yml
