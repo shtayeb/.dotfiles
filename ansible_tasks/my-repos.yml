@@ -1,0 +1,13 @@
+- name: Clone Django-Study-Buddy
+  ansible.builtin.git:
+    repo: https://github.com/shtayeb/Django-Studybudy-YT.git
+    dest: ~/Code/Django-StudyBuddy
+  tags:
+    - git-personal
+
+- name: Clone Go Organizer
+  ansible.builtin.git:
+    repo: https://github.com/shtayeb/Organizer-Script.git
+    dest: ~/Code/Go-Organizer
+  tags:
+    - git-personal

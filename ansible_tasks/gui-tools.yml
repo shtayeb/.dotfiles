@@ -19,7 +19,7 @@
 - name: Install packages
   become: true
   apt:
-    name: ["kdenlive", "gimp", "screenkey", "shutter"]
+    name: ["kdenlive", "gimp", "screenkey", "shutter","vlc"]
   tags:
     - gui-tools
 
