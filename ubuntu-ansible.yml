@@ -19,5 +19,6 @@
     - include: ansible_tasks/nvim-setup.yml
     - include: ansible_tasks/productivity-tools.yml
     - include: ansible_tasks/git-setup.yml
+    - include: ansible_tasks/my-repos.yml
     - include: ansible_tasks/gui-tools.yml
     - include: ansible_tasks/php-setup.yml
