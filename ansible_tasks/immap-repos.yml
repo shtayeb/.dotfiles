@@ -1,0 +1,27 @@
+- name: Clone RH Version 2
+  ansible.builtin.git:
+    repo: https://github.com/iMMAP/rh.git
+    dest: ~/Code/iMMAP/rh
+  tags:
+    - immap
+
+- name: Clone HSDC
+  ansible.builtin.git:
+    repo: https://github.com/iMMAP/geonode_playground.git
+    dest: ~/Code/iMMAP/HSDC
+  tags:
+    - immap
+
+- name: Clone Old ReportHub Frontend
+  ansible.builtin.git:
+    repo: https://github.com/iMMAP/ngm-reportHub.git
+    dest: ~/Code/iMMAP/Old_ReportHub/frontend
+  tags:
+    - immap
+
+- name: Clone Old ReportHub Backend
+  ansible.builtin.git:
+    repo: https://github.com/iMMAP/ngm-reportEngine.git
+    dest: ~/Code/iMMAP/Old_ReportHub/backend
+  tags:
+    - immap
