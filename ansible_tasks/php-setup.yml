@@ -1,7 +1,3 @@
-# PHP
-vars:
-  composer_url: https://getcomposer.org/download/latest-stable/composer.phar
-
 - name: Installation install software-properties-common
   apt: name=software-properties-common
   tags:
@@ -48,8 +44,8 @@ vars:
 # https://getcomposer.org/download
 - name: Composer | Install Composer latest-stable
   get_url:
-    url: '{{ composer_url }}'
-    checksum: 'sha256:{{ composer_url }}.sha256sum'
+    url: 'https://getcomposer.org/download/latest-stable/composer.phar'
+    checksum: 'sha256:https://getcomposer.org/download/latest-stable/composer.phar.sha256sum'
     dest: /usr/local/bin/composer.phar
     mode: 0755
   tags:
