@@ -29,11 +29,39 @@
       - wget
       - gpg
     state: present
+  tags:
+    - gui-tools
 
 - name: Download Microsoft GPG key
   shell: wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
   args:
     chdir: "{{ ansible_env.HOME }}"
+  tags:
+    - gui-tools
+
+# Table plus installation
+- name: TablePlus GPG key
+  shell: wget -qO - https://deb.tableplus.com/apt.tableplus.com.gpg.key | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/tableplus-archive.gpg > /dev/null
+  tags:
+    - gui-tools
+
+- name: Add table plus repo
+  shell: add-apt-repository "deb [arch=amd64] https://deb.tableplus.com/debian/22 tableplus main"
+  tags:
+    - gui-tools
+
+- name: Update package cache
+  apt:
+    update_cache: yes
+  tags:
+    - gui-tools
+
+- name: Install VS Code
+  apt:
+    name: tableplus
+    state: present
+  tags:
+    - gui-tools
 
 # GPT: VS Code Installation (Could have used snap but it is going to be removed from ubuntu)
 - name: Install Microsoft GPG key
@@ -43,28 +71,40 @@
     owner: root
     group: root
     mode: 0644
+  tags:
+    - gui-tools
 
 - name: Add VS Code repository
   lineinfile:
     path: "/etc/apt/sources.list.d/vscode.list"
     line: "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main"
     create: yes
+  tags:
+    - gui-tools
 
 - name: Remove temporary GPG key file
   file:
     path: "{{ ansible_env.HOME }}/packages.microsoft.gpg"
     state: absent
+  tags:
+    - gui-tools
 
 - name: Install apt-transport-https
   apt:
     name: apt-transport-https
     state: present
+  tags:
+    - gui-tools
 
 - name: Update package cache
   apt:
     update_cache: yes
+  tags:
+    - gui-tools
 
 - name: Install VS Code
   apt:
     name: code
     state: present
+  tags:
+    - gui-tools
