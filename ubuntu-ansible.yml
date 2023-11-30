@@ -1,11 +1,11 @@
 - hosts: localhost
   become: true
   pre_tasks:
-    - name: Update Cache
-      apt:
-        update_cache: yes
-        update_cache: true
-        state: present
+  - name: Update Cache
+    apt:
+      update_cache: yes
+      update_cache: true
+      state: present
     tags:
       - install
       - core
@@ -20,3 +20,4 @@
     - include: ansible_tasks/productivity-tools.yml
     - include: ansible_tasks/git-setup.yml
     - include: ansible_tasks/gui-tools.yml
+    - include: ansible_tasks/php-setup.yml
