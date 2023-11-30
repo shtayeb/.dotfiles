@@ -25,3 +25,17 @@
     dest: ~/Code/iMMAP/Old_ReportHub/backend
   tags:
     - immap
+
+- name: Clone Old ReportHub Docs Repo
+  ansible.builtin.git:
+    repo: https://github.com/iMMAP/ngm-reporthubDocs.git
+    dest: ~/Code/iMMAP/Old_ReportHub/docs
+  tags:
+    - immap
+
+- name: Clone Old ReportHub Virtual Box setup
+  ansible.builtin.git:
+    repo: https://github.com/iMMAP/ngm-reportShell
+    dest: ~/Code/iMMAP/Old_ReportHub/virtualbox_setup
+  tags:
+    - immap
