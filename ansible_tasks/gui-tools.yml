@@ -1,8 +1,7 @@
-- name: shutter ppa (ppa:linuxuprising/shutter)
+- name: shutter ppa (universe)
   become: true
   apt_repository:
-    repo: ppa:linuxuprising/shutter
-    state: present
+    repo: universe
     update_cache: True
   tags:
     - gui-tools
