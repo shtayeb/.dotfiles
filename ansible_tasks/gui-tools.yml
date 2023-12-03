@@ -1,15 +1,13 @@
 - name: shutter ppa (universe)
   become: true
-  apt_repository:
-    repo: universe
-    update_cache: True
+  shell: add-apt-repository universe
   tags:
     - gui-tools
 
 - name: Install packages
   become: true
   apt:
-    name: [ "gimp", "screenkey", "shutter","vlc"]
+    name: ["gimp", "screenkey", "shutter", "vlc"]
   tags:
     - gui-tools
 
@@ -31,7 +29,7 @@
 
 # Table plus installation
 - name: TablePlus GPG key
-  shell: wget -qO - https://deb.tableplus.com/apt.tableplus.com.gpg.key | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/tableplus-archive.gpg > /dev/null
+  shell: wget -qO - https://deb.tableplus.com/apt.tableplus.com.gpg.key | gpg --dearmor | tee /etc/apt/trusted.gpg.d/tableplus-archive.gpg > /dev/null
   tags:
     - gui-tools
 
