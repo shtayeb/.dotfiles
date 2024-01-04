@@ -1,5 +1,5 @@
 vim.opt.colorcolumn = "80"
-vim.o.shell = "pwsh"
+-- vim.o.shell = "pwsh"
 
 vim.api.nvim_set_keymap('i', 'jk', '<Esc>', { noremap=true})
 vim.api.nvim_set_keymap('v', 'jk', '<Esc>', {noremap=true})
