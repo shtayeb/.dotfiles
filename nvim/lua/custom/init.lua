@@ -7,6 +7,8 @@ vim.api.nvim_set_keymap('v', 'jk', '<Esc>', {noremap=true})
 -- vim.keymap.set('i', 'jk', '<Esc>', {noremap=true})
 -- vim.keymap.set('v', 'jk', '<Esc>', {noremap=true})
 
+vim.filetype.add({ extension = { templ = "templ" } })
+
 local getOs = function()
 	-- ask LuaJIT first
 	if jit then

@@ -1,5 +1,14 @@
 local plugins = {
   {
+    "joerdav/templ.vim"
+  },
+  {
+    "nvim-treesitter/nvim-treesitter",
+    opts = {
+      ensure_installed = { "lua","go","html","python","css"},
+    },
+  },
+  {
     "williamboman/mason.nvim",
     opts = {
       ensure_installed = {
@@ -7,6 +16,9 @@ local plugins = {
         "mypy",
         "ruff",
         "pyright",
+        "html-lsp",
+        "tailwindcss-language-server",
+        "templ"
       },
     },
   },
