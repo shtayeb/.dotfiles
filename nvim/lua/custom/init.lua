@@ -6,6 +6,7 @@ vim.api.nvim_set_keymap('v', 'jk', '<Esc>', {noremap=true})
 
 -- vim.keymap.set('i', 'jk', '<Esc>', {noremap=true})
 -- vim.keymap.set('v', 'jk', '<Esc>', {noremap=true})
+-- vim.loop.os_uname().sysname == "Windows_NT"
 
 vim.filetype.add({ extension = { templ = "templ" } })
 
