@@ -14,7 +14,7 @@ return {
    color_scheme = "Gruvbox dark, medium (base16)",
 
    -- background
-   window_background_opacity = 0.95,
+   window_background_opacity = 0.97,
    win32_system_backdrop = 'Acrylic',
    background = {
      {

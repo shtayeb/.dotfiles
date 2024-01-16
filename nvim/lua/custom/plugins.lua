@@ -18,7 +18,9 @@ local plugins = {
         "pyright",
         "html-lsp",
         "tailwindcss-language-server",
-        "templ"
+        "templ",
+        "typescript-language-server",
+        "biome"
       },
     },
   },
