@@ -8,6 +8,13 @@ vim.api.nvim_set_keymap('v', 'jk', '<Esc>', {noremap=true})
 -- vim.keymap.set('v', 'jk', '<Esc>', {noremap=true})
 -- vim.loop.os_uname().sysname == "Windows_NT"
 
+vim.keymap.set(
+  "n",
+  "<leader>ee",
+  "oif err != nil {<CR>}<Esc>Oreturn err<Esc>"
+)
+
+
 vim.filetype.add({ extension = { templ = "templ" } })
 
 local getOs = function()
