@@ -14,6 +14,12 @@ vim.keymap.set(
   "oif err != nil {<CR>}<Esc>Oreturn err<Esc>"
 )
 
+vim.keymap.set(
+  "n",
+  "9",
+  "$"
+)
+
 
 vim.filetype.add({ extension = { templ = "templ" } })
 
