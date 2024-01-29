@@ -4,21 +4,13 @@ vim.opt.colorcolumn = "80"
 vim.api.nvim_set_keymap('i', 'jk', '<Esc>', { noremap=true})
 vim.api.nvim_set_keymap('v', 'jk', '<Esc>', {noremap=true})
 
--- vim.keymap.set('i', 'jk', '<Esc>', {noremap=true})
--- vim.keymap.set('v', 'jk', '<Esc>', {noremap=true})
--- vim.loop.os_uname().sysname == "Windows_NT"
-
 vim.keymap.set(
   "n",
   "<leader>ee",
   "oif err != nil {<CR>}<Esc>Oreturn err<Esc>"
 )
 
-vim.keymap.set(
-  "n",
-  "9",
-  "$"
-)
+vim.keymap.set("n","9","$")
 
 
 vim.filetype.add({ extension = { templ = "templ" } })

@@ -1,11 +1,12 @@
 local wezterm = require('wezterm')
 local colors = require('colors.custom')
 -- local fonts = require('config.fonts')
+local get_wallpaper = require('utils.get_wallpaper')
 
 return {
    term = "xterm-256color",
    animation_fps = 60,
-   max_fps = 60,
+   -- max_fps = 60,
    front_end = 'WebGpu',
    webgpu_power_preference = 'HighPerformance',
 
@@ -17,14 +18,18 @@ return {
    window_background_opacity = 0.97,
    win32_system_backdrop = 'Acrylic',
    background = {
-     {
-        source = { File = wezterm.config_dir .. '/backdrops/space.jpg' },
-     },
+      get_wallpaper(),
+   --   {
+   --      source = { File = wezterm.config_dir .. '/backdrops/space.jpg' },
+   --   },
+   --   {
+   --      source = { File = wezterm.config_dir .. '/backdrops/purple-waves.jpg' },
+   --   },
      {
         source = { Color = colors.background },
         height = '100%',
         width = '100%',
-        opacity = 0.85,
+        opacity = 0.96,
      },
    },
 

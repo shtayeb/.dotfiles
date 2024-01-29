@@ -3,6 +3,21 @@ local plugins = {
     "joerdav/templ.vim"
   },
   {
+  "nvim-treesitter/nvim-treesitter-context",
+    enabled = true,
+    opts = { mode = "cursor" },
+    keys = {
+      {
+        "<leader>ut",
+        function()
+          local tsc = require("treesitter-context")
+          tsc.toggle()
+        end,
+        desc = "Toggle Treesitter Context",
+      },
+    },
+  },
+  {
     "nvim-treesitter/nvim-treesitter",
     opts = {
       ensure_installed = { "lua","go","html","python","css"},
