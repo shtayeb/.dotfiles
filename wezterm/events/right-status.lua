@@ -66,7 +66,7 @@ M.setup = function()
    wezterm.on('update-right-status', function(window, _pane)
       M.cells = {}
       M.set_date()
-      M.set_battery()
+      -- M.set_battery()
 
       window:set_right_status(wezterm.format(M.cells))
    end)
