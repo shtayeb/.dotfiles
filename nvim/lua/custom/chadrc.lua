@@ -2,8 +2,12 @@
 local M = {}
 
 M.ui = {
-    theme = 'catppuccin',
+    theme = 'ayu_dark',
     transparency = true,
+    hl_override = {
+      -- CursorLine = { bg = "#313131" },
+      -- CursorColumn = { bg = "#313131" }
+    },
     statusline = {
         theme = "minimal", -- default/vscode/vscode_colored/minimal
 

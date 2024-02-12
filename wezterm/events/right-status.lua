@@ -29,7 +29,7 @@ M.push = function(text, icon, fg, bg, separate)
    if separate then
       table.insert(M.cells, { Foreground = { Color = M.colors.separator_fg } })
       table.insert(M.cells, { Background = { Color = M.colors.separator_bg } })
-      table.insert(M.cells, { Text = M.separator_char })
+      -- table.insert(M.cells, { Text = M.separator_char })
    end
 
    table.insert(M.cells, 'ResetAttributes')

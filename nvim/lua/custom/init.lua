@@ -10,6 +10,9 @@ vim.keymap.set(
   "oif err != nil {<CR>}<Esc>Oreturn err<Esc>"
 )
 
+-- vim.opt.cursorline = true
+-- vim.opt.relativenumber = true 
+
 vim.keymap.set("n","9","$")
 
 
