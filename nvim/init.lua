@@ -160,6 +160,10 @@ vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
 
 -- My keymaps
+local is_windows = vim.fn.has("win32") ~= 0
+if is_windows then
+	vim.opt.shell = "pwsh"
+end
 
 vim.api.nvim_set_keymap('i', 'jk', '<Esc>', { noremap=true})
 vim.api.nvim_set_keymap('v', 'jk', '<Esc>', {noremap=true})
