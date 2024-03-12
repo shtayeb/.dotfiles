@@ -36,8 +36,8 @@ return {
       {
          name = 'WSL:Ubuntu',
          distribution = 'Ubuntu',
-         username = 'shahr',
-         default_cwd = '/home/shahr',
+         username = 'shtb',
+         default_cwd = '/home/shtb',
          default_prog = { 'zsh' },
       },
    },

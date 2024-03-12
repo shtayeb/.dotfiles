@@ -24,7 +24,7 @@ return {
    --   },
    --   {
    --      source = { File = wezterm.config_dir .. '/backdrops/purple-waves.jpg' },
-   --   },
+   -- --   },
      {
         source = { Color = colors.background },
         height = '100%',

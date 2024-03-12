@@ -3,7 +3,7 @@ local M = {}
 
 M.ui = {
     theme = 'ayu_dark',
-    transparency = true,
+    -- transparency = false,
     hl_override = {
       -- CursorLine = { bg = "#313131" },
       -- CursorColumn = { bg = "#313131" }
