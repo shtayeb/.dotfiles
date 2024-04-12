@@ -25,16 +25,16 @@
     - install
     - neovim
 # TODO: do the installing of nvchad
-- name: Install NvChad
-  ansible.builtin.git:
-    repo: "https://github.com/NvChad/NvChad"
-    dest: "{{ lookup('env', 'HOME') }}/.config/nvim"
-  tags:
-    - install
-    - neovim
+# - name: Install NvChad
+#   ansible.builtin.git:
+#     repo: "https://github.com/NvChad/NvChad"
+#     dest: "{{ lookup('env', 'HOME') }}/.config/nvim"
+#   tags:
+#     - install
+#     - neovim
 # link the nvim/custom to neovim - this requires this .dofiles repo to be presen in the $HOME
-- name: Link custom nvim setup to NvChad
-  shell: "ln -s $HOME/.dotfiles/nvim/lua/custom $HOME/.config/nvim/lua/custom"
+- name: Link nvim
+  shell: "ln -s $HOME/.dotfiles/nvim $HOME/.config/nvim"
   tags:
     - install
     - neovim
