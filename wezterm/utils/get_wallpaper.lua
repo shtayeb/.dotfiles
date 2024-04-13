@@ -12,13 +12,9 @@ end
 local get_wallpaper = function()
 	local wallpapers = {
 		wezterm.config_dir .. '/backdrops/space.jpg' ,
-		wezterm.config_dir .. '/backdrops/1.jpg' ,
 		wezterm.config_dir .. '/backdrops/2.jpg' ,
-		wezterm.config_dir .. '/backdrops/3.jpg' ,
 		wezterm.config_dir .. '/backdrops/5.jpg' ,
 		wezterm.config_dir .. '/backdrops/6.jpg' ,
-		wezterm.config_dir .. '/backdrops/7.jpg' ,
-		wezterm.config_dir .. '/backdrops/8.png' ,
 		wezterm.config_dir .. '/backdrops/9.png' ,
 	}
 	

@@ -12,7 +12,8 @@ return {
 
    -- color scheme
    -- colors = colors,
-   color_scheme = "Gruvbox dark, medium (base16)",
+   -- color_scheme = "Gruvbox dark, medium (base16)"
+   color_scheme = 'Aco (Gogh)',
 
    -- background
    window_background_opacity = 0.97,
@@ -63,11 +64,11 @@ return {
    initial_rows = 24,
    window_padding = {
       left = 5,
-      right = 10,
-      top = 12,
-      bottom = 7,
+      right = 5,
+      top = 5,
+      bottom = 5,
    },
-   window_close_confirmation = 'AlwaysPrompt',
+   -- window_close_confirmation = 'AlwaysPrompt',
    window_frame = {
       active_titlebar_bg = '#090909',
       -- font = fonts.font,
