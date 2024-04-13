@@ -17,16 +17,16 @@ M.cells = {}
 
 M.colors = {
    default = {
-      -- bg = "#589220",
+      bg = "#589220",
       fg = "#1c1b19",
    },
    is_active = {
-      -- bg = "#dac835",
+      bg = "#dac835",
       fg = "#11111b",
    },
 
    hover = {
-      -- bg = "#79c92e",
+      bg = "#79c92e",
       fg = "#1c1b19",
    },
 }
@@ -41,9 +41,9 @@ M.set_title = function(process_name, static_title, active_title, max_width, inse
    inset = inset or 6
 
    if process_name:len() > 0 and static_title:len() == 0 then
-      title = process_name .. " ~ " .. " "
+      title = process_name
    elseif static_title:len() > 0 then
-      title = static_title .. " ~ " .. " "
+      title = static_title
    else
       title = active_title .. " ㉿ " .. " "
    end
@@ -78,22 +78,22 @@ M.setup = function()
    wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
       M.cells = {}
 
-      local bg
-      local fg
-      local process_name = M.set_process_name(tab.active_pane.foreground_process_name)
+      -- local bg
+      -- local fg
+      -- local process_name = M.set_process_name(tab.active_pane.foreground_process_name)
       local is_admin = M.check_if_admin(tab.active_pane.title)
-      local title = M.set_title(process_name, tab.tab_title, tab.active_pane.title, max_width, (is_admin and 8))
+      -- local title = M.set_title(process_name, tab.tab_title, tab.active_pane.title, max_width, (is_admin and 8))
 
-      if tab.is_active then
-         bg = M.colors.is_active.bg
-         fg = M.colors.is_active.fg
-      elseif hover then
-         bg = M.colors.hover.bg
-         fg = M.colors.hover.fg
-      else
-         bg = M.colors.default.bg
-         fg = M.colors.default.fg
-      end
+      -- if tab.is_active then
+      --    bg = M.colors.is_active.bg
+      --    fg = M.colors.is_active.fg
+      -- elseif hover then
+      --    bg = M.colors.hover.bg
+      --    fg = M.colors.hover.fg
+      -- else
+      --    bg = M.colors.default.bg
+      --    fg = M.colors.default.fg
+      -- end
 
       local has_unseen_output = false
       for _, pane in ipairs(tab.panes) do
@@ -104,26 +104,34 @@ M.setup = function()
       end
 
       -- Left semi-circle
-      M.push(fg, bg, { Intensity = "Bold" }, GLYPH_SEMI_CIRCLE_LEFT)
+      -- M.push(fg, bg, { Intensity = "Bold" }, GLYPH_SEMI_CIRCLE_LEFT)
 
       -- Admin Icon
       if is_admin then
-         M.push(bg, fg, { Intensity = "Bold" }, " " .. GLYPH_ADMIN)
+         -- M.push(bg, fg, { Intensity = "Bold" }, " " .. GLYPH_ADMIN)
+         table.insert(M.cells, { Text = " " .. GLYPH_ADMIN })
+      end
+
+      local is_zoomed = ''
+      if tab.active_pane.is_zoomed then
+         is_zoomed = 'z'
       end
 
       -- Title
-      M.push(bg, fg, { Intensity = "Bold" }, " " .. title)
+      -- M.push(bg, fg, { Intensity = "Bold" }, " " .. title)
+      table.insert(M.cells, { Text = ' ' .. tab.tab_index + 1 .. is_zoomed .. ' '  })
 
       -- Unseen output alert
       if has_unseen_output then
-         M.push(bg, "#FFA066", { Intensity = "Bold" }, " " .. GLYPH_CIRCLE)
+         -- M.push(bg, "#FFA066", { Intensity = "Bold" }, " " .. GLYPH_CIRCLE)
+         table.insert(M.cells, { Text = " " .. GLYPH_CIRCLE })
       end
 
       -- Right padding
-      M.push(bg, fg, { Intensity = "Bold" }, " ")
+      -- M.push(bg, fg, { Intensity = "Bold" }, " ")
 
       -- Right semi-circle
-      M.push(fg, bg, { Intensity = "Bold" }, GLYPH_SEMI_CIRCLE_RIGHT)
+      -- M.push(fg, bg, { Intensity = "Bold" }, GLYPH_SEMI_CIRCLE_RIGHT)
 
       return M.cells
    end)
