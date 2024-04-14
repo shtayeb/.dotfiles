@@ -141,7 +141,7 @@ vim.opt.splitbelow = true
 --  and `:help 'listchars'`
 vim.opt.list = true
 -- vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
-vim.opt.listchars = { tab = "│ ",multispace ,trail = "·", nbsp = "␣" }
+vim.opt.listchars = { tab = "│ ", multispace, trail = "·", nbsp = "␣" }
 
 -- Preview substitutions live, as you type!
 vim.opt.inccommand = "split"
@@ -170,6 +170,13 @@ vim.api.nvim_set_keymap("v", "jk", "<Esc>", { noremap = true })
 vim.keymap.set("n", "<C-s>", "<cmd>w<CR>", { desc = "File Save" })
 vim.keymap.set("n", "<leader>rl", "<cmd>set rnu!<CR>", { desc = "Toggle Relative number" })
 vim.keymap.set("n", "<leader>x", "<cmd>bdelete<CR>", { desc = "Buffer Close" })
+
+-- Quickfix
+-- <leader>c(k|j|o)
+vim.keymap.set("n", "<leader>co", "<cmd>copen<CR>", { desc = "Quickfix Open" })
+vim.keymap.set("n", "<leader>ck", "<cmd>cnext<CR>", { desc = "Quickfix Next" })
+vim.keymap.set("n", "<leader>cj", "<cmd>cprev<CR>", { desc = "Quickfix Previous" })
+
 -- terminal
 vim.keymap.set("t", "<C-x>", "<C-\\><C-N>", { desc = "Terminal Escape terminal mode" })
 
@@ -397,7 +404,7 @@ require("lazy").setup({
 			vim.keymap.set("n", "<leader>sd", builtin.diagnostics, { desc = "[S]earch [D]iagnostics" })
 			vim.keymap.set("n", "<leader>sr", builtin.resume, { desc = "[S]earch [R]esume" })
 			vim.keymap.set("n", "<leader>s.", builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
-			vim.keymap.set("n", "<leader>st", builtin.colorscheme, { desc = '[S]earch Color Schemes' })
+			vim.keymap.set("n", "<leader>st", builtin.colorscheme, { desc = "[S]earch Color Schemes" })
 			vim.keymap.set("n", "<leader><leader>", builtin.buffers, { desc = "[ ] Find existing buffers" })
 
 			-- Slightly advanced example of overriding default behavior and theme
@@ -426,6 +433,9 @@ require("lazy").setup({
 	},
 	{ -- LSP Configuration & Plugins
 		"neovim/nvim-lspconfig",
+		opts = {
+			inlay_hints = {enabled=true}
+		},
 		dependencies = {
 			-- Automatically install LSPs and related tools to stdpath for neovim
 			"williamboman/mason.nvim",
@@ -567,6 +577,15 @@ require("lazy").setup({
 					root_dir = require("lspconfig/util").root_pattern("go.work", "go.mod", ".git"),
 					settings = {
 						gopls = {
+							hints = { 
+								assignVariableTypes = true,
+								compositeLiteralFields = true,
+								compositeLiteralTypes = true,
+								constantValues = true,
+								functionTypeParameters = true,
+								parameterNames = true,
+								rangeVariableTypes = true,
+							},
 							completeUnimported = true,
 							usePlaceholders = true,
 							analyses = {
@@ -611,6 +630,9 @@ require("lazy").setup({
 							},
 							-- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
 							-- diagnostics = { disable = { 'missing-fields' } },
+							hint = {
+								enable = true,
+							},
 						},
 					},
 				},

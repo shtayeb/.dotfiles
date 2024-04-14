@@ -54,6 +54,7 @@ return {
    cursor_blink_ease_in = "Constant",
    cursor_blink_ease_out = "Constant",
    cursor_blink_rate = 700,
+   force_reverse_video_cursor = true,
 
    -- window
    window_decorations = "INTEGRATED_BUTTONS|RESIZE",
