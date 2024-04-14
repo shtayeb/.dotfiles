@@ -159,6 +159,19 @@ vim.opt.scrolloff = 8
 vim.opt.hlsearch = true
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 
+
+----
+---- Custom
+----
+
+-- disable netrw at the very start of your init.lua
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
+-- optionally enable 24-bit colour
+vim.opt.termguicolors = true
+
+
 -- My keymaps
 local is_windows = vim.fn.has("win32") ~= 0
 if is_windows then
@@ -550,6 +563,13 @@ require("lazy").setup({
 							buffer = event.buf,
 							callback = vim.lsp.buf.clear_references,
 						})
+					end
+					-- The following autocommand is used to enable inlay hints in your
+					-- code, if the language server you are using supports them
+					--
+					-- This may be unwanted, since they displace some of your code
+					if client and client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
+						vim.lsp.inlay_hint.enable(event.buf, true)
 					end
 				end,
 			})
