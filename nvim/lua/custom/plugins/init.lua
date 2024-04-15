@@ -5,6 +5,9 @@
 return {
 	-- My plugins
 	{
+		"github/copilot.vim"
+	},
+	{
 		"rebelot/kanagawa.nvim",
 		-- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`
 		lazy = false, -- make sure we load this during startup if it is your main colorscheme
