@@ -44,7 +44,7 @@
   tags:
     - gui-tools
 
-- name: Install VS Code
+- name: Install tableplus
   apt:
     name: tableplus
     state: present
