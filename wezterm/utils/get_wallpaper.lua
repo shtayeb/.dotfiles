@@ -16,6 +16,7 @@ local get_wallpaper = function()
 		wezterm.config_dir .. '/backdrops/5.jpg' ,
 		wezterm.config_dir .. '/backdrops/6.jpg' ,
 		wezterm.config_dir .. '/backdrops/9.png' ,
+		wezterm.config_dir .. '/backdrops/gh.jpg' ,
 	}
 	
 	local wallpaper = get_random_entry(wallpapers)
