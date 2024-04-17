@@ -6,14 +6,14 @@
       update_cache: true
 
   tasks:
-    - include: ansible_tasks/core-setup.yml
-    - include: ansible_tasks/git-setup.yml
-    - include: ansible_tasks/zsh-setup.yml
-    - include: ansible_tasks/node-setup.yml
-    - include: ansible_tasks/npm-packages.yml
-    - include: ansible_tasks/nvim-setup.yml
-    - include: ansible_tasks/productivity-tools.yml
-    - include: ansible_tasks/git-setup.yml
-    - include: ansible_tasks/my-repos.yml
-    - include: ansible_tasks/gui-tools.yml
-    - include: ansible_tasks/php-setup.yml
+    - include_tasks: ansible_tasks/core-setup.yml
+    - include_tasks: ansible_tasks/git-setup.yml
+    - include_tasks: ansible_tasks/zsh-setup.yml
+    - include_tasks: ansible_tasks/node-setup.yml
+    - include_tasks: ansible_tasks/npm-packages.yml
+    - include_tasks: ansible_tasks/nvim-setup.yml
+    - include_tasks: ansible_tasks/productivity-tools.yml
+    - include_tasks: ansible_tasks/git-setup.yml
+    - include_tasks: ansible_tasks/my-repos.yml
+    - include_tasks: ansible_tasks/gui-tools.yml
+    - include_tasks: ansible_tasks/php-setup.yml
