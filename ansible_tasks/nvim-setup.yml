@@ -34,7 +34,7 @@
 #     - neovim
 # link the nvim/custom to neovim - this requires this .dofiles repo to be presen in the $HOME
 - name: Link nvim
-  shell: "ln -s $HOME/.dotfiles/nvim $HOME/.config/nvim"
+  shell: "ln -s {{ lookup('env', 'HOME') }}/.dotfiles/nvim {{ lookup('env', 'HOME') }}/.config/nvim"
   tags:
     - install
     - neovim
