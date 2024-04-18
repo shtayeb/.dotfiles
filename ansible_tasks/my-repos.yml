@@ -1,13 +1,13 @@
 - name: Clone Django-Study-Buddy
   ansible.builtin.git:
     repo: https://github.com/shtayeb/Django-Studybudy-YT.git
-    dest: {{ lookup('env', 'HOME') }}/Code/Django-StudyBuddy
+    dest: "{{ lookup('env', 'HOME') }}/Code/Django-StudyBuddy"
   tags:
     - git-personal
 
 - name: Clone Go Organizer
   ansible.builtin.git:
     repo: https://github.com/shtayeb/Organizer-Script.git
-    dest: {{ lookup('env', 'HOME') }}/Code/Go-Organizer
+    dest: "{{ lookup('env', 'HOME') }}/Code/Go-Organizer"
   tags:
     - git-personal

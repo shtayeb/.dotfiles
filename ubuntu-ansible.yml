@@ -1,5 +1,5 @@
 - hosts: localhost
-  become: false
+  become: yes
   pre_tasks:
   - name: Update Cache
     apt:
