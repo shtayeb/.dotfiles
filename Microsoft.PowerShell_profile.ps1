@@ -60,8 +60,8 @@ function Select-GitBranch {
 }
 
 # leverage PSFzf
-Function fsa {Invoke-FuzzyGitStatus | % { git add $_ }}
-Function fgch {Select-GitBranch}
+Function fgs {Invoke-FuzzyGitStatus | % { git add $_ }}
+Function fgc {Select-GitBranch}
 # list and execute psake tasks for a specific project from any directory
 
 ################################
