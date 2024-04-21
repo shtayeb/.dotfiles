@@ -102,6 +102,24 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+alias a="php artisan"
+alias n="npm run"
+alias p="python manage.py"
+
+alias gs="git status"
+alias gb="git branch"
+alias gch="git checkout"
+alias glg="git log --oneline --decorate --color"
+alias gct="git add . && git commit"
+alias ga="git add . && git commit --amend --no-edit "
+alias gd="git diff"
+alias gpp="git stash pop"
+alias gpl="git pull"
+alias gps="git push"
+alias gsh="git stash"
+
+
 export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/Devel
 #source /usr/local/bin/virtualenvwrapper.sh
@@ -109,9 +127,7 @@ export PROJECT_HOME=$HOME/Devel
 export JAVA_HOME=$(dirname $(dirname $(readlink -f $(which java))))
 export PATH=$PATH:$JAVA_HOME/bin
 
-alias a="php artisan"
-alias n="npm run"
-alias p="python manage.py"
+
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
