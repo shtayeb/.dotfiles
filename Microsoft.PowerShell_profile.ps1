@@ -7,15 +7,9 @@ Set-PSReadLineOption -EditMode Windows
 
 ####
 
-# Set some useful Alias to shorten typing and save some key stroke
-Set-Alias ll ls 
-Set-Alias g git 
-Set-Alias grep findstr
-
 #Fzf (Import the fuzzy finder and set a shortcut key to begin searching)
 Import-Module PSFzf
 Set-PsFzfOption -PSReadlineChordProvider 'Ctrl+f' -PSReadlineChordReverseHistory 'Ctrl+r'
-Invoke-FuzzyGitStatus
 
 # Utility Command that tells you where the absolute path of commandlets are 
 function which ($command) { 
@@ -23,8 +17,11 @@ function which ($command) {
     Select-Object -ExpandProperty Path -ErrorAction SilentlyContinue 
 } 
 
-#####
-
+################################
+# Set some useful Alias to shorten typing and save some key stroke
+Set-Alias ll ls 
+Set-Alias g git 
+Set-Alias grep findstr
 
 function serve{
 php artisan serve
@@ -38,8 +35,38 @@ function vim{
 nvim .
 }
 
+Function nr { npm run $args }
+Function a { php artisan $args }
 
+# Git aliases
+Function gs { git status $args }
+Function gb { git branch $args }
+Function gch { git checkout $args }
+Function glg { git log --oneline --decorate --color $args }
+Function gct { git add . && git commit  $args }
+Function ga { git add . && git commit --amend --no-edit }
+Function gd { git diff $args }
+Function gpp { git stash pop $args }
+Function gpl { git pull $args }
+Function gps { git push $args }
+Function gsh { git stash $args }
 
+function Select-GitBranch {
+    $branches = git branch | ForEach-Object { $_ -replace '^\*?\s*', '' }
+    $selectedBranch = $branches | Invoke-Fzf -Multi -Header "Select Git Branch"
+    if ($selectedBranch) {
+        git checkout $selectedBranch
+    }
+}
+
+# leverage PSFzf
+Function fsa {Invoke-FuzzyGitStatus | % { git add $_ }}
+Function fgch {Select-GitBranch}
+# list and execute psake tasks for a specific project from any directory
+
+################################
+
+# Auto brackets
 Set-PSReadLineKeyHandler -Chord '"',"'" `
                          -BriefDescription SmartInsertQuote `
                          -LongDescription "Insert paired quotes if not already on a quote" `
@@ -123,14 +150,57 @@ Set-PSReadLineKeyHandler -Key F7 `
     }
 }
 
+# All History with fzf
+# press f8
+Set-PSReadLineKeyHandler -Key F8 `
+                         -BriefDescription History `
+                         -LongDescription 'Show command history' `
+                         -ScriptBlock {
+    $pattern = $null
+    [Microsoft.PowerShell.PSConsoleReadLine]::GetBufferState([ref]$pattern, [ref]$null)
+    if ($pattern)
+    {
+        $pattern = [regex]::Escape($pattern)
+    }
 
+    $history = [System.Collections.ArrayList]@(
+        $last = ''
+        $lines = ''
+        foreach ($line in [System.IO.File]::ReadLines((Get-PSReadLineOption).HistorySavePath))
+        {
+            if ($line.EndsWith('`'))
+            {
+                $line = $line.Substring(0, $line.Length - 1)
+                $lines = if ($lines)
+                {
+                    "$lines`n$line"
+                }
+                else
+                {
+                    $line
+                }
+                continue
+            }
 
+            if ($lines)
+            {
+                $line = "$lines`n$line"
+                $lines = ''
+            }
 
-################################
+            if (($line -cne $last) -and (!$pattern -or ($line -match $pattern)))
+            {
+                $last = $line
+                $line
+            }
+        }
+    )
+    $history.Reverse()
 
-Function nr { npm run $args }
-# leverage PSFzf
-Function fsa {Invoke-FuzzyGitStatus | % { git add $_ }}
-# list and execute psake tasks for a specific project from any directory
-
-################################
+    $selectedCommand = $history | Invoke-Fzf -Multi -Header "History"
+    if ($selectedCommand)
+    {
+        [Microsoft.PowerShell.PSConsoleReadLine]::RevertLine()
+        [Microsoft.PowerShell.PSConsoleReadLine]::Insert(($selectedCommand -join "`n"))
+    }
+}
