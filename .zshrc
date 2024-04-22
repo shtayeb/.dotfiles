@@ -131,7 +131,7 @@ export PATH=$PATH:$JAVA_HOME/bin
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-export GOROOT=/usr/local/go
+# export GOROOT=/usr/local/go
 export GOPATH=$HOME/go
 export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 
@@ -159,6 +159,9 @@ export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 # git clone https://github.com/junegunn/fzf-git.sh.git
 
 eval "$(zoxide init zsh)"
+
+# https://github.com/nvbn/thefuck?tab=readme-ov-file
+eval $(thefuck --alias)
 
 # Set up fzf key bindings and fuzzy completion
 eval "$(fzf --zsh)"

@@ -5,6 +5,9 @@
 return {
 	-- My plugins
 	{
+		"tpope/vim-fugitive"
+	},
+	{
 		"github/copilot.vim"
 	},
 	{

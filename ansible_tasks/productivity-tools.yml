@@ -1,7 +1,67 @@
 - name: Install packages
   become: true
   apt:
-    name: ["tmux", "fzf", "xclip", "tldr", "ripgrep"]
+    name: ["tmux", "xclip", "tldr", "ripgrep"]
   tags:
     - install
     - productivity
+
+
+- name: Install packages
+  apt:
+    name: ["gpg"]
+  tags:
+    - install
+    - productivity
+
+- name: Install fzf
+  ansible.builtin.git:
+    repo: https://github.com/junegunn/fzf.git
+    dest: {{ lookup('env', 'HOME') }}/.fzf"
+  tags:
+    - install
+    - productivity
+
+- name: Install fzf-git plugin
+  ansible.builtin.git:
+    repo: https://github.com/junegunn/fzf-git.sh.git
+    dest: {{ lookup('env', 'HOME') }}/fzf-git.sh"
+  tags:
+    - install
+    - productivity
+
+
+- name: Install fzf from repo
+  shell: "{{ lookup('env', 'HOME') }}/.fzf/install"
+  register: hack_exists
+  ignore_errors: yes
+
+- name: Install eza library on Ubuntu (Better ls)
+  become: yes
+  tasks:
+    - name: Create directory for apt keyrings
+      file:
+        path: /etc/apt/keyrings
+        state: directory
+        mode: '0755'
+
+    - name: Download GPG key and save to apt keyring
+      get_url:
+        url: "https://raw.githubusercontent.com/eza-community/eza/main/deb.asc"
+        dest: "/etc/apt/keyrings/gierens.gpg"
+
+    - name: Add eza repository to sources list
+      apt_repository:
+        repo: "deb [signed-by=/etc/apt/keyrings/gierens.gpg] http://deb.gierens.de stable main"
+        state: present
+
+    - name: Update apt package cache
+      apt:
+        update_cache: yes
+
+    - name: Install eza library
+      apt:
+        name: eza
+        state: present
+        update_cache: yes
+
