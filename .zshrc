@@ -103,6 +103,9 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+alias bat="batcat"
+alias cat="batcat"
+
 alias a="php artisan"
 alias n="npm run"
 alias p="python manage.py"
@@ -119,15 +122,12 @@ alias gpl="git pull"
 alias gps="git push"
 alias gsh="git stash"
 
-
 export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/Devel
 #source /usr/local/bin/virtualenvwrapper.sh
 
 export JAVA_HOME=$(dirname $(dirname $(readlink -f $(which java))))
 export PATH=$PATH:$JAVA_HOME/bin
-
-
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
@@ -142,10 +142,16 @@ export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 # To install latest version of fzf
 # git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 # ~/.fzf/install
+# Set up fzf key bindings and fuzzy completion
+eval "$(fzf --zsh)"
 
 ###########
 # fzf git
 ###########
+
+# git clone https://github.com/junegunn/fzf-git.sh.git
+source ~/fzf-git.sh/fzf-git.sh
+
 # Keybind	Description
 # CTRL-GF	Look for git files with fzf
 # CTRL-GB	Look for git branches with fzf
@@ -156,20 +162,17 @@ export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 # CTRL-GL	Look for git reflogs with fzf
 # CTRL-GW	Look for git worktrees with fzf
 # CTRL-GE	Look for git for-each-ref with fzf
-# git clone https://github.com/junegunn/fzf-git.sh.git
 
+# zoxide (better cd)
 eval "$(zoxide init zsh)"
 
+# thefuck (Auto correct commands)
+# INSTALL: pip install thefuck
 # https://github.com/nvbn/thefuck?tab=readme-ov-file
 eval $(thefuck --alias)
 
-# Set up fzf key bindings and fuzzy completion
-eval "$(fzf --zsh)"
-source ~/fzf-git.sh/fzf-git.sh
-
-# ---- Eza (better ls) -----
-# Install eza
-# https://github.com/eza-community/eza/blob/main/INSTALL.md#debian-and-ubuntu
+# Eza (better ls)
+# Install eza: https://github.com/eza-community/eza/blob/main/INSTALL.md#debian-and-ubuntu
 # alias ls="eza --color=always --long --git --no-filesize --icons=always --no-time --no-user --no-permissions"
 alias ls="eza --color=always --long --git --icons=always"
 

@@ -5,6 +5,11 @@ Set-PSReadLineOption -PredictionSource History
 Set-PSReadLineOption -PredictionViewStyle ListView
 Set-PSReadLineOption -EditMode Windows
 
+#### 
+# winget install fzf
+# winget install tldr
+# winget install sharkdp.bat
+# winget install eza-community.eza
 ####
 
 #Fzf (Import the fuzzy finder and set a shortcut key to begin searching)
@@ -19,9 +24,12 @@ function which ($command) {
 
 ################################
 # Set some useful Alias to shorten typing and save some key stroke
-Set-Alias ll ls 
+Set-Alias ll eza-ls 
+Set-Alias ls eza-ls 
 Set-Alias g git 
 Set-Alias grep findstr
+
+Set-Alias cat bat
 
 function serve{
 php artisan serve
@@ -37,6 +45,8 @@ nvim .
 
 Function nr { npm run $args }
 Function a { php artisan $args }
+
+Function eza-ls { eza --color=always --long --git --icons=always $args }
 
 # Git aliases
 Function gs { git status $args }
@@ -204,3 +214,24 @@ Set-PSReadLineKeyHandler -Key F8 `
         [Microsoft.PowerShell.PSConsoleReadLine]::Insert(($selectedCommand -join "`n"))
     }
 }
+
+
+# Powershell eqv of 'scripts/cht.sh' script
+function Search-Cheatsheet {
+    $languages = "golang", "typescript", "php", "javascript"
+    $core_utile = "find", "xargs", "sed", "awk"
+
+    $selected = ($languages + $core_utile) | fzf
+
+    $query = Read-Host "Your Query"
+
+    if ($selected -in $languages) {
+        $url = "http://cht.sh/$selected/$($query -replace ' ', '+')"
+    } else {
+        $url = "http://cht.sh/$selected-$query"
+    }
+
+    Start-Process -NoNewWindow -Wait -FilePath "curl" -ArgumentList $url
+}
+
+Function cht { Search-Cheatsheet }
