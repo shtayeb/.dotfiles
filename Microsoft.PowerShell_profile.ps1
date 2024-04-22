@@ -231,7 +231,8 @@ function Search-Cheatsheet {
         $url = "http://cht.sh/$selected-$query"
     }
 
-    Start-Process -NoNewWindow -Wait -FilePath "curl" -ArgumentList $url
+    # Start-Process -NoNewWindow -Wait -FilePath "curl" -ArgumentList $url
+    curl $url --silent | bat
 }
 
 Function cht { Search-Cheatsheet }
