@@ -218,7 +218,7 @@ Set-PSReadLineKeyHandler -Key F8 `
 
 # Powershell eqv of 'scripts/cht.sh' script
 function Search-Cheatsheet {
-    $languages = "golang", "typescript", "php", "javascript"
+    $languages = "golang", "typescript", "php", "javascript", "laravel", "django", "react", "vuejs","tmpl","python","sql","postgresql","sqlite"
     $core_utile = "find", "xargs", "sed", "awk"
 
     $selected = ($languages + $core_utile) | fzf
