@@ -123,11 +123,8 @@ alias gps="git push"
 alias gsh="git stash"
 
 export WORKON_HOME=$HOME/.virtualenvs
-export PROJECT_HOME=$HOME/Devel
+export PROJECT_HOME=$HOME/Code
 #source /usr/local/bin/virtualenvwrapper.sh
-
-export JAVA_HOME=$(dirname $(dirname $(readlink -f $(which java))))
-export PATH=$PATH:$JAVA_HOME/bin
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
@@ -176,7 +173,7 @@ eval $(thefuck --alias)
 # alias ls="eza --color=always --long --git --no-filesize --icons=always --no-time --no-user --no-permissions"
 alias ls="eza --color=always --long --git --icons=always"
 
-
-. ~/.dotfiles/scripts/z.sh
+# make all scripts in the scripts folder available
+export PATH=$PATH:~/.dotfiles/scripts:$PATH
 
 
