@@ -61,9 +61,18 @@ Function gpl { git pull $args }
 Function gps { git push $args }
 Function gsh { git stash $args }
 
+
 function Select-GitBranch {
-    $branches = git branch | ForEach-Object { $_ -replace '^\*?\s*', '' }
+    # Fetch the latest information from the remote repository
+    # git fetch --prune
+    
+    # Get the list of all branches (local and remote)
+    $branches = git branch -a --sort=-committerdate | ForEach-Object { $_ -replace '^\*?\s*', '' }
+    
+    # Prompt the user to select a branch using Invoke-Fzf
     $selectedBranch = $branches | Invoke-Fzf -Multi -Header "Select Git Branch"
+    
+    # If a branch is selected, checkout that branch
     if ($selectedBranch) {
         git checkout $selectedBranch
     }
