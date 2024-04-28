@@ -131,6 +131,7 @@ export PROJECT_HOME=$HOME/Code
 # export GOROOT=/usr/local/go
 export GOPATH=$HOME/go
 export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
+export PATH=$PATH:/usr/local/go/bin
 
 
 #######
@@ -175,5 +176,3 @@ alias ls="eza --color=always --long --git --icons=always"
 
 # make all scripts in the scripts folder available
 export PATH=$PATH:~/.dotfiles/scripts:$PATH
-
-

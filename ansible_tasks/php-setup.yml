@@ -22,6 +22,7 @@
 - name: install lamp stack
   apt:
     pkg:
+      - php8.3-sqlite3
       - php8.3-mysql
       - php8.3-curl
       - php8.3-cgi

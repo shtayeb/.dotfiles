@@ -1,7 +1,7 @@
 - name: Install packages
   become: true
   apt:
-    name: ["tmux", "xclip", "tldr", "ripgrep","bat"]
+    name: ["tmux", "xclip", "tldr", "ripgrep","bat","sqlite3"]
   tags:
     - install
     - productivity
