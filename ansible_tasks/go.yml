@@ -1,0 +1,21 @@
+- name: Install Go
+  hosts: all
+  become: yes
+  tasks:
+    - name: Download Go tarball
+      get_url:
+        url: "https://golang.org/dl/go1.22.2.linux-amd64.tar.gz"
+        dest: "/tmp/go1.22.2.linux-amd64.tar.gz"
+        validate_certs: yes
+    - name: Extract Go tarball
+      unarchive:
+        src: "/tmp/go1.22.2.linux-amd64.tar.gz"
+        dest: "/usr/local"
+        remote_src: yes
+        creates: "/usr/local/go"
+
+    - name: Set Go environment variables
+      lineinfile:
+        path: "{{ ansible_env.HOME }}/.profile"
+        line: "export PATH=$PATH:/usr/local/go/bin"[^3^][3]
+        create: yes

@@ -4,11 +4,33 @@
 -- See the kickstart.nvim README for more information
 return {
 	-- My plugins
+	{ "rose-pine/neovim", name = "rose-pine" },
 	{
-		"tpope/vim-fugitive"
+		"tiagovla/tokyodark.nvim",
+		opts = {
+			-- custom options here
+		},
+		config = function(_, opts)
+			-- require("tokyodark").setup(opts) -- calling setup is optional
+			-- vim.cmd([[colorscheme tokyodark]])
+		end,
 	},
 	{
-		"github/copilot.vim"
+		"uloco/bluloco.nvim",
+		lazy = false,
+		priority = 1000,
+		dependencies = { "rktjmp/lush.nvim" },
+		config = function()
+			-- your optional config goes here, see below.
+			vim.cmd.colorscheme("bluloco-dark")
+		end,
+	},
+
+	{
+		"tpope/vim-fugitive",
+	},
+	{
+		"github/copilot.vim",
 	},
 	{
 		"rebelot/kanagawa.nvim",
@@ -19,7 +41,7 @@ return {
 			-- Load the colorscheme here.
 			-- Like many other themes, this one has different styles, and you could load
 			-- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-			vim.cmd.colorscheme("kanagawa")
+			-- vim.cmd.colorscheme("kanagawa")
 
 			-- You can configure highlights by doing something like
 		end,

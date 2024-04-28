@@ -159,12 +159,11 @@ vim.opt.scrolloff = 8
 vim.opt.hlsearch = true
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 
-
 ----
 ---- Custom
 ----
-vim.api.nvim_command("autocmd TermOpen * startinsert")             -- starts in insert mode
-vim.api.nvim_command("autocmd TermOpen * setlocal nonumber")       -- no numbers
+vim.api.nvim_command("autocmd TermOpen * startinsert") -- starts in insert mode
+vim.api.nvim_command("autocmd TermOpen * setlocal nonumber") -- no numbers
 vim.api.nvim_command("autocmd TermEnter * setlocal signcolumn=no")
 
 -- disable netrw at the very start of your init.lua
@@ -173,7 +172,6 @@ vim.g.loaded_netrwPlugin = 1
 
 -- optionally enable 24-bit colour
 vim.opt.termguicolors = true
-
 
 -- My keymaps
 local is_windows = vim.fn.has("win32") ~= 0
@@ -450,7 +448,6 @@ require("lazy").setup({
 	{ -- LSP Configuration & Plugins
 		"neovim/nvim-lspconfig",
 		opts = {
-			inlay_hints = {enabled=true}
 		},
 		dependencies = {
 			-- Automatically install LSPs and related tools to stdpath for neovim
@@ -571,9 +568,9 @@ require("lazy").setup({
 					-- code, if the language server you are using supports them
 					--
 					-- This may be unwanted, since they displace some of your code
-					if client and client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
-						vim.lsp.inlay_hint.enable(event.buf, true)
-					end
+					-- if client and client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
+					-- 	vim.lsp.inlay_hint.enable(event.buf, true)
+					-- end
 				end,
 			})
 
@@ -600,7 +597,7 @@ require("lazy").setup({
 					root_dir = require("lspconfig/util").root_pattern("go.work", "go.mod", ".git"),
 					settings = {
 						gopls = {
-							hints = { 
+							hints = {
 								assignVariableTypes = true,
 								compositeLiteralFields = true,
 								compositeLiteralTypes = true,
