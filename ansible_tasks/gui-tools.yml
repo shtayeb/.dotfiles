@@ -7,7 +7,7 @@
 - name: Install packages
   become: true
   apt:
-    name: ["gimp", "screenkey", "shutter", "vlc"]
+    name: ["gimp", "screenkey", "shutter", "vlc","copyq"]
   tags:
     - gui-tools
 
