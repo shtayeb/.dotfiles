@@ -119,7 +119,7 @@ alias ga="git add . && git commit --amend --no-edit "
 alias gd="git diff"
 alias gpp="git stash pop"
 alias gpl="git pull"
-alias gps="git push"
+alias gpo="git push origin"
 alias gsh="git stash"
 
 # Eza (better ls)

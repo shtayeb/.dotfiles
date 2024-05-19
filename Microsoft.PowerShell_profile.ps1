@@ -10,6 +10,7 @@ Set-PSReadLineOption -EditMode Windows
 # winget install tldr
 # winget install sharkdp.bat
 # winget install eza-community.eza
+# winget install XAMPPRocky.tokei
 ####
 
 #Fzf (Import the fuzzy finder and set a shortcut key to begin searching)
@@ -56,9 +57,9 @@ Function glg { git log --oneline --decorate --color $args }
 Function gct { git add . && git commit  $args }
 Function ga { git add . && git commit --amend --no-edit }
 Function gd { git diff $args }
-Function gpp { git stash pop $args }
+Function gsp { git stash pop $args }
 Function gpl { git pull $args }
-Function gps { git push $args }
+Function gpo { git push origin $args }
 Function gsh { git stash $args }
 
 

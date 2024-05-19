@@ -70,7 +70,7 @@ return {
       top = 5,
       bottom = 5,
    },
-   -- window_close_confirmation = 'AlwaysPrompt',
+   window_close_confirmation = 'NeverPrompt',
    window_frame = {
       active_titlebar_bg = '#090909',
       -- font = fonts.font,
