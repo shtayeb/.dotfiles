@@ -51,7 +51,7 @@ return {
 		cmd = { "NvimTreeToggle", "NvimTreeFocus" },
 		opts = {
 			filters = {
-				dotfiles = true,
+				dotfiles = false,
 				exclude = { vim.fn.stdpath("config") .. "/lua/custom" },
 			},
 			disable_netrw = true,
