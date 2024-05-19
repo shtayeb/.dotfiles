@@ -17,15 +17,23 @@ source "${ZINIT_HOME}/zinit.zsh"
 # End package manager
 
 
+
+
 # Plugins
 
 # Add powerlevel10k
 zinit ice depth=1; zinit light romkatv/powerlevel10k
 
-zinit light zsh-users/zsh-syntax-highlighting
 zinit light zsh-users/zsh-completions
-zinit light zsh-users/zsh-autosuggestions
+
+# load completions
+autoload -U compinit && compinit
+
+# should be loaded after completions are loaded and before syntax-highlighting and auto-suggestions
 zinit light Aloxaf/fzf-tab
+
+zinit light zsh-users/zsh-syntax-highlighting
+zinit light zsh-users/zsh-autosuggestions
 
 zinit light junegunn/fzf-git.sh
 # Keybind	Description
@@ -47,8 +55,7 @@ zinit snippet OMZP::command-not-found
 zinit snippet OMZP::charm
 zinit snippet OMZP::composer
 
-# load completions
-autoload -U compinit && compinit
+
 
 zinit cdreplay -q
 
@@ -77,10 +84,21 @@ setopt hist_find_no_dups
 
 # completion styling
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
-zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
-zstyle ':completion:*' menu no
-zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
 zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
+
+# disable sort when completing `git checkout`
+zstyle ':completion:*:git-checkout:*' sort false
+# set descriptions format to enable group support
+# NOTE: don't use escape sequences here, fzf-tab will ignore them
+zstyle ':completion:*:descriptions' format '[%d]'
+# set list-colors to enable filename colorizing
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+# force zsh not to show completion menu, which allows fzf-tab to capture the unambiguous prefix
+zstyle ':completion:*' menu no
+# preview directory's content with eza when completing cd
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always --icons=always $realpath'
+# switch group using `<` and `>`
+zstyle ':fzf-tab:*' switch-group '<' '>'
 
 
 # aliases
