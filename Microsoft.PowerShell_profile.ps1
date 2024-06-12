@@ -11,6 +11,7 @@ Set-PSReadLineOption -EditMode Windows
 # winget install sharkdp.bat
 # winget install eza-community.eza
 # winget install XAMPPRocky.tokei
+# winget install ajeetdsouza.zoxide
 ####
 
 #Fzf (Import the fuzzy finder and set a shortcut key to begin searching)
@@ -246,3 +247,6 @@ function Search-Cheatsheet {
 }
 
 Function cht { Search-Cheatsheet }
+
+
+# Invoke-Expression (& { (zoxide init powershell | Out-String) })

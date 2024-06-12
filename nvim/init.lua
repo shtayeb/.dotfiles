@@ -674,7 +674,7 @@ require("lazy").setup({
 				"gopls",
 				-- "mypy",
 				"ruff",
-				-- "pyright",
+				"pyright",
 				"html-lsp",
 				"tailwindcss-language-server",
 				"templ",
