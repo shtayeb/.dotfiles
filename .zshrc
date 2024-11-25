@@ -17,7 +17,17 @@ source "${ZINIT_HOME}/zinit.zsh"
 # End package manager
 
 
+# make all scripts in the scripts folder available
+export PATH=$PATH:~/.dotfiles/scripts:$PATH
+export PATH=$PATH:~/.local/bin:$PATH
 
+export WORKON_HOME=$HOME/.virtualenvs
+export PROJECT_HOME=$HOME/Code
+
+# export GOROOT=/usr/local/go
+export GOPATH=$HOME/go
+export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
+export PATH=$PATH:/usr/local/go/bin
 
 # Plugins
 
@@ -135,16 +145,4 @@ eval "$(zoxide init --cmd cd zsh)"
 # thefuck (Auto correct commands)
 # INSTALL: pip install thefuck
 # https://github.com/nvbn/thefuck?tab=readme-ov-file
-eval $(thefuck --alias)
-
-
-# make all scripts in the scripts folder available
-export PATH=$PATH:~/.dotfiles/scripts:$PATH
-
-export WORKON_HOME=$HOME/.virtualenvs
-export PROJECT_HOME=$HOME/Code
-
-# export GOROOT=/usr/local/go
-export GOPATH=$HOME/go
-export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
-export PATH=$PATH:/usr/local/go/bin
+# eval $(thefuck --alias)

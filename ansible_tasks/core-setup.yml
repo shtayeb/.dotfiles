@@ -19,7 +19,7 @@
 - name: Install System Packages 3 (the rest)
   become: true
   apt:
-    name: ["curl", "htop", "lsof", "i3", "python3","python3-pip", "clangd"]
+    name: ["curl", "htop", "lsof", "python3","python3-pip", "clangd"]
   tags:
     - install
     - core
@@ -27,7 +27,7 @@
 - name: Install Clang
   become: true
   apt:
-    name: ["clang", "clang-12", "clangd", "clangd-12"]
+    name: ["clang", "clangd"]
   tags:
     - install
     - neovim
