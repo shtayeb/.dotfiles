@@ -19,7 +19,7 @@
 - name: Install System Packages 3 (the rest)
   become: true
   apt:
-    name: ["curl", "htop", "lsof", "python3","python3-pip", "clangd"]
+    name: ["curl", "htop", "lsof", "python3","python3-pip","python3-venv" ]
   tags:
     - install
     - core

@@ -28,23 +28,23 @@
 #   shell: sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 #   tags: *tags_for_zsh_tasks
 
-- name: Install zsh-autosuggestions plugin # noqa: latest
-  ansible.builtin.git:
-    repo: https://github.com/zsh-users/zsh-autosuggestions
-    dest: "{{ lookup('env', 'HOME') }}/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
-  tags: *tags_for_zsh_tasks
+# - name: Install zsh-autosuggestions plugin # noqa: latest
+#   ansible.builtin.git:
+#     repo: https://github.com/zsh-users/zsh-autosuggestions
+#     dest: "{{ lookup('env', 'HOME') }}/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
+#   tags: *tags_for_zsh_tasks
 
-- name: Install zsh-completions plugin # noqa: latest
-  ansible.builtin.git:
-    repo: https://github.com/zsh-users/zsh-completions
-    dest: "{{ lookup('env', 'HOME') }}/.oh-my-zsh/custom/plugins/zsh-completions"
-  tags: *tags_for_zsh_tasks
+# - name: Install zsh-completions plugin # noqa: latest
+#   ansible.builtin.git:
+#     repo: https://github.com/zsh-users/zsh-completions
+#     dest: "{{ lookup('env', 'HOME') }}/.oh-my-zsh/custom/plugins/zsh-completions"
+#   tags: *tags_for_zsh_tasks
 
-- name: Install zsh-syntax-highlighting plugin # noqa: latest
-  ansible.builtin.git:
-    repo: https://github.com/zsh-users/zsh-syntax-highlighting.git
-    dest: "{{ lookup('env', 'HOME') }}/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting"
-  tags: *tags_for_zsh_tasks
+# - name: Install zsh-syntax-highlighting plugin # noqa: latest
+#   ansible.builtin.git:
+#     repo: https://github.com/zsh-users/zsh-syntax-highlighting.git
+#     dest: "{{ lookup('env', 'HOME') }}/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting"
+#   tags: *tags_for_zsh_tasks
 
 # Add plugins in to the .zshrc file (Junkie - probally should have a .zshrc in this repo)
 # - name: Add plugins name to the .zshrc file

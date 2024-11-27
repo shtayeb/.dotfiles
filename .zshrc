@@ -45,6 +45,10 @@ zinit light Aloxaf/fzf-tab
 zinit light zsh-users/zsh-syntax-highlighting
 zinit light zsh-users/zsh-autosuggestions
 
+# zsh-fzf-history-search
+zinit ice lucid wait'0'
+zinit light joshskidmore/zsh-fzf-history-search
+
 zinit light junegunn/fzf-git.sh
 # Keybind	Description
 # CTRL-GF	Look for git files with fzf
@@ -64,8 +68,6 @@ zinit snippet OMZP::sudo
 zinit snippet OMZP::command-not-found
 zinit snippet OMZP::charm
 zinit snippet OMZP::composer
-
-
 
 zinit cdreplay -q
 
@@ -136,7 +138,6 @@ alias gsh="git stash"
 # Install eza: https://github.com/eza-community/eza/blob/main/INSTALL.md#debian-and-ubuntu
 # alias ls="eza --color=always --long --git --no-filesize --icons=always --no-time --no-user --no-permissions"
 alias ls="eza --color=always --long --git --icons=always"
-
 
 # shell integrations
 # eval "$(fzf --zsh)"
