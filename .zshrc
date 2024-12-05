@@ -119,7 +119,7 @@ alias bat="batcat"
 alias cat="batcat"
 
 alias a="php artisan"
-alias n="npm run"
+alias nr="npm run"
 alias p="python manage.py"
 
 alias gs="git status"
