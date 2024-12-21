@@ -5,65 +5,32 @@
 return {
 	-- My plugins
 	{
-		"shtayeb/nvim-django-shell",
+		dir = "C:\\Users\\shahr\\Music\\2 - No Framework\\nvim-django-shell",
 		opts = {
-			name = "Max"
+			name = "max",
 		},
 	},
 	{
-		"CopilotC-Nvim/CopilotChat.nvim",
-		branch = "canary",
-		dependencies = {
-			{ "zbirenbaum/copilot.lua" }, -- or github/copilot.vim
-			{ "nvim-lua/plenary.nvim" }, -- for curl, log wrapper
-		},
-		opts = {
-			debug = true, -- Enable debugging
-			-- See Configuration section for rest
-		},
-		-- See Commands section for default commands if you want to lazy load on them
+		"rose-pine/neovim",
+		name = "rose-pine",
+		config = function()
+			vim.cmd([[colorscheme rose-pine-moon]])
+		end,
 	},
-	{ "rose-pine/neovim", name = "rose-pine" },
 	{
 		"tiagovla/tokyodark.nvim",
-		opts = {
-			-- custom options here
-		},
-		config = function(_, opts)
-			-- require("tokyodark").setup(opts) -- calling setup is optional
-			-- vim.cmd([[colorscheme tokyodark]])
-		end,
-	},
-	{
-		"uloco/bluloco.nvim",
-		lazy = false,
-		priority = 1000,
-		dependencies = { "rktjmp/lush.nvim" },
 		config = function()
+			-- vim.cmd([[colorscheme tokyodark]])
 			-- your optional config goes here, see below.
-			vim.cmd.colorscheme("bluloco-dark")
+			-- vim.cmd.colorscheme("bluloco-dark")
 		end,
 	},
-
-	{
-		"tpope/vim-fugitive",
-	},
-	{
-		"github/copilot.vim",
-	},
+	{ "tpope/vim-fugitive" },
+	{ "github/copilot.vim" },
 	{
 		"rebelot/kanagawa.nvim",
-		-- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`
 		lazy = false, -- make sure we load this during startup if it is your main colorscheme
 		priority = 1000, -- make sure to load this before all the other start plugins
-		config = function()
-			-- Load the colorscheme here.
-			-- Like many other themes, this one has different styles, and you could load
-			-- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-			-- vim.cmd.colorscheme("kanagawa")
-
-			-- You can configure highlights by doing something like
-		end,
 	},
 	{
 		"nvim-tree/nvim-tree.lua",
@@ -151,20 +118,19 @@ return {
 			vim.keymap.set("n", "<leader>et", "<cmd>NvimTreeFocus<CR>", { desc = "Nvimtree Focus window" })
 		end,
 	},
-	-- {
-	-- 	"windwp/nvim-autopairs",
-	-- 	opts = {
-	-- 		fast_wrap = {},
-	-- 		disable_filetype = { "TelescopePrompt", "vim" },
-	-- 	},
-	-- 	config = function(_, opts)
-	-- 		require("nvim-autopairs").setup(opts)
-
-	-- 		-- setup cmp for autopairs
-	-- 		local cmp_autopairs = require("nvim-autopairs.completion.cmp")
-	-- 		require("cmp").event:on("confirm_done", cmp_autopairs.on_confirm_done())
-	-- 	end,
-	-- },
+	{
+		"windwp/nvim-autopairs",
+		opts = {
+			fast_wrap = {},
+			disable_filetype = { "TelescopePrompt", "vim" },
+		},
+		config = function(_, opts)
+			require("nvim-autopairs").setup(opts)
+			-- setup cmp for autopairs
+			local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+			require("cmp").event:on("confirm_done", cmp_autopairs.on_confirm_done())
+		end,
+	},
 	{
 		"nvim-treesitter/nvim-treesitter-context",
 		enabled = true,
@@ -180,9 +146,7 @@ return {
 			},
 		},
 	},
-	{
-		"joerdav/templ.vim",
-	},
+	{ "joerdav/templ.vim" },
 	{
 		"olexsmir/gopher.nvim",
 		ft = "go",
