@@ -11,6 +11,17 @@ return {
 		},
 	},
 	{
+		"akinsho/horizon.nvim",
+		version = "*",
+		opts = {
+			overrides = {
+				colors = {
+					CursorLine = { bg = "#1e1e1e", fg = "#ffffff", underline = true },
+				},
+			},
+		},
+	},
+	{
 		"rose-pine/neovim",
 		name = "rose-pine",
 		config = function()
@@ -26,7 +37,6 @@ return {
 		end,
 	},
 	{ "tpope/vim-fugitive" },
-	{ "github/copilot.vim" },
 	{
 		"rebelot/kanagawa.nvim",
 		lazy = false, -- make sure we load this during startup if it is your main colorscheme
