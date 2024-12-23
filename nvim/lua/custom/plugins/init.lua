@@ -5,10 +5,8 @@
 return {
 	-- My plugins
 	{
-		dir = "C:\\Users\\shahr\\Music\\2 - No Framework\\nvim-django-shell",
-		opts = {
-			name = "max",
-		},
+		dir = "/home/stayeb/Code/django-projects/nvim-django-shell",
+		opts = {},
 	},
 	{
 		"rose-pine/neovim",
@@ -26,7 +24,6 @@ return {
 		end,
 	},
 	{ "tpope/vim-fugitive" },
-	{ "github/copilot.vim" },
 	{
 		"rebelot/kanagawa.nvim",
 		lazy = false, -- make sure we load this during startup if it is your main colorscheme
