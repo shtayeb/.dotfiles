@@ -5,7 +5,7 @@
 return {
 	-- My plugins
 	{
-		dir = "/home/stayeb/Code/django-projects/nvim-django-shell",
+		dir = "~/Code/django-projects/nvim-django-shell",
 		opts = {},
 	},
 	{
