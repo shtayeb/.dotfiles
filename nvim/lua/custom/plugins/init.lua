@@ -5,10 +5,8 @@
 return {
 	-- My plugins
 	{
-		dir = "C:\\Users\\shahr\\Music\\2 - No Framework\\nvim-django-shell",
-		opts = {
-			name = "max",
-		},
+		dir = "/home/stayeb/Code/django-projects/nvim-django-shell",
+		opts = {},
 	},
 	{
 		"akinsho/horizon.nvim",
