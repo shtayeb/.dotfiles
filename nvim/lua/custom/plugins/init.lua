@@ -9,31 +9,13 @@ return {
 		opts = {},
 	},
 	{
-		"akinsho/horizon.nvim",
-		version = "*",
-		opts = {
-			overrides = {
-				colors = {
-					CursorLine = { bg = "#1e1e1e", fg = "#ffffff", underline = true },
-				},
-			},
-		},
-	},
-	{
 		"rose-pine/neovim",
 		name = "rose-pine",
 		config = function()
 			vim.cmd([[colorscheme rose-pine-moon]])
 		end,
 	},
-	{
-		"tiagovla/tokyodark.nvim",
-		config = function()
-			-- vim.cmd([[colorscheme tokyodark]])
-			-- your optional config goes here, see below.
-			-- vim.cmd.colorscheme("bluloco-dark")
-		end,
-	},
+	{ "tiagovla/tokyodark.nvim" },
 	{ "tpope/vim-fugitive" },
 	{
 		"rebelot/kanagawa.nvim",
