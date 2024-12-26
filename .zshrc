@@ -29,6 +29,9 @@ export GOPATH=$HOME/go
 export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 export PATH=$PATH:/usr/local/go/bin
 
+export FLYCTL_INSTALL="~/.fly"
+export PATH="$FLYCTL_INSTALL/bin:$PATH"
+
 # Plugins
 
 # Add powerlevel10k
