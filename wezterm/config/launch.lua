@@ -13,20 +13,13 @@ if platform.is_win then
       { label = 'Command Prompt', args = { 'cmd' } },
       {
          label = 'Git Bash',
-         -- args = { 'C:\\Users\\kevin\\scoop\\apps\\git\\current\\bin\\bash.exe' },
          args = { 'C:\\Program Files\\Git\\bin\\bash.exe' },
       },
-      -- {
-      --    label = 'Alma Linux',
-      --    args = { 'ssh', 'kali@192.168.44.147', '-p', '22' },
-      -- },
    }
 elseif platform.is_mac then
    options.default_prog = { '/opt/homebrew/bin/fish' }
    options.launch_menu = {
       { label = 'Bash', args = { 'bash' } },
-      { label = 'Fish', args = { '/opt/homebrew/bin/fish' } },
-      { label = 'Nushell', args = { '/opt/homebrew/bin/nu' } },
       { label = 'Zsh', args = { 'zsh' } },
    }
 else

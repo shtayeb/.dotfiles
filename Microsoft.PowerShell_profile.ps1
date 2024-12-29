@@ -12,6 +12,7 @@ Set-PSReadLineOption -EditMode Windows
 # winget install eza-community.eza
 # winget install XAMPPRocky.tokei
 # winget install ajeetdsouza.zoxide
+# winget install -e --id=JesseDuffield.lazygit
 ####
 
 #Fzf (Import the fuzzy finder and set a shortcut key to begin searching)

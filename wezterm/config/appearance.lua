@@ -1,6 +1,4 @@
 local wezterm = require('wezterm')
--- local colors = require('colors.custom')
--- local fonts = require('config.fonts')
 local get_wallpaper = require('utils.get_wallpaper')
 
 return {
@@ -17,7 +15,8 @@ return {
 
    -- background
    window_background_opacity = 0.97,
-   win32_system_backdrop = 'Acrylic',
+   win32_system_backdrop = 'Tabbed', -- Acrylic,Mica
+   -- win32_system_backdrop = 'Acrylic', -- Acrylic,Mica, Tabbed
    background = {
       get_wallpaper(),
    --   {
@@ -35,38 +34,34 @@ return {
    },
 
    -- scrollbar
-   enable_scroll_bar = true,
-   min_scroll_bar_height = "3cell",
-   colors = {
-      scrollbar_thumb = '#454545',
-   },
+   -- enable_scroll_bar = false,
+   -- min_scroll_bar_height = "0.5cell",
+   -- colors = {
+   --    scrollbar_thumb = '#454545',
+   --    scrollbar_thumb = '#313131',
+   -- },
 
    -- tab bar
    enable_tab_bar = true,
    hide_tab_bar_if_only_one_tab = false,
-   use_fancy_tab_bar = true,
+   use_fancy_tab_bar = false,
    tab_max_width = 25,
    show_tab_index_in_tab_bar = true,
    switch_to_last_active_tab_when_closing_tab = true,
 
    -- cursor
-   
    default_cursor_style = "SteadyBlock", -- BlinkingBlock,SteadyBar,SteadyBlock
    cursor_blink_ease_in = "Constant",
    cursor_blink_ease_out = "Constant",
    cursor_blink_rate = 700,
-   force_reverse_video_cursor = true,
+   -- force_reverse_video_cursor = true,
 
    -- window
    window_decorations = "INTEGRATED_BUTTONS|RESIZE",
-   integrated_title_button_style = "Windows",
-   integrated_title_button_color = "auto",
-   integrated_title_button_alignment = "Right",
-   -- initial_cols = 120,
-   -- initial_rows = 24,
+   integrated_title_button_style = "Gnome",
    window_padding = {
-      left = 0,
-      right = 0,
+      left = 4,
+      right = 4,
       top = 0,
       bottom = 0,
    },
