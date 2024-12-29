@@ -1,5 +1,5 @@
 local wezterm = require('wezterm')
-local colors = require('colors.custom')
+-- local colors = require('colors.custom')
 -- local fonts = require('config.fonts')
 local get_wallpaper = require('utils.get_wallpaper')
 
@@ -27,7 +27,7 @@ return {
    --      source = { File = wezterm.config_dir .. '/backdrops/purple-waves.jpg' },
    -- --   },
      {
-        source = { Color = colors.background },
+        source = { Color = "#1f1f28" },
         height = '100%',
         width = '100%',
         opacity = 0.96,
@@ -62,19 +62,19 @@ return {
    integrated_title_button_style = "Windows",
    integrated_title_button_color = "auto",
    integrated_title_button_alignment = "Right",
-   initial_cols = 120,
-   initial_rows = 24,
+   -- initial_cols = 120,
+   -- initial_rows = 24,
    window_padding = {
-      left = 5,
-      right = 5,
-      top = 5,
-      bottom = 5,
+      left = 0,
+      right = 0,
+      top = 0,
+      bottom = 0,
    },
    window_close_confirmation = 'NeverPrompt',
-   window_frame = {
-      active_titlebar_bg = '#090909',
+   -- window_frame = {
+      -- active_titlebar_bg = '#090909',
       -- font = fonts.font,
       -- font_size = fonts.font_size,
-   },
-   inactive_pane_hsb = { saturation = 1.0, brightness = 1.0 },
+   -- },
+   -- inactive_pane_hsb = { saturation = 1.0, brightness = 1.0 },
 }
