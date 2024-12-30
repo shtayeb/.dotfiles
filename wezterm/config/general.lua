@@ -2,7 +2,8 @@ return {
    -- behaviours
    automatically_reload_config = true,
    check_for_updates = true,
-   exit_behavior = 'CloseOnCleanExit', -- if the shell program exited with a successful status
+   -- exit_behavior = 'CloseOnCleanExit', -- if the shell program exited with a successful status
+   exit_behavior = 'Close', -- if the shell program exited with a successful status
    status_update_interval = 1000,
 
    -- scrollbar
