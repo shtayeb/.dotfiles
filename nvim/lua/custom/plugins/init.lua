@@ -10,6 +10,35 @@ return {
 	},
 
 	{
+		"nvim-neo-tree/neo-tree.nvim",
+		branch = "v3.x",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+			"MunifTanjim/nui.nvim",
+			-- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
+		},
+		opts = {
+			close_if_last_window = true,
+			popup_border_style = "rounded",
+			sources = {
+				"filesystem",
+			},
+			filesystem = {
+				filtered_items = {
+					visible = true,
+					hide_gitignored = false,
+					hide_dotfiles = false,
+				},
+				follow_current_file = true,
+			},
+		},
+		config = function(_, opts)
+			require("neo-tree").setup(opts)
+			vim.keymap.set("n", "<C-n>", "<cmd>Neotree toggle<CR>", { desc = "Nvimtree Toggle window" })
+		end,
+	},
+	{
 		"kdheepak/lazygit.nvim",
 		lazy = true,
 		cmd = {
@@ -42,92 +71,6 @@ return {
 		"rebelot/kanagawa.nvim",
 		lazy = false, -- make sure we load this during startup if it is your main colorscheme
 		priority = 1000, -- make sure to load this before all the other start plugins
-	},
-	{
-		"nvim-tree/nvim-tree.lua",
-		cmd = { "NvimTreeToggle", "NvimTreeFocus" },
-		opts = {
-			filters = {
-				dotfiles = false,
-				exclude = { vim.fn.stdpath("config") .. "/lua/custom" },
-			},
-			disable_netrw = true,
-			hijack_netrw = true,
-			hijack_cursor = true,
-			hijack_unnamed_buffer_when_opening = false,
-			sync_root_with_cwd = true,
-			update_focused_file = {
-				enable = true,
-				update_root = false,
-			},
-			view = {
-				adaptive_size = false,
-				side = "left",
-				width = 30,
-				preserve_window_proportions = true,
-			},
-			git = {
-				enable = true,
-				ignore = false,
-			},
-			filesystem_watchers = {
-				enable = true,
-			},
-			actions = {
-				open_file = {
-					resize_window = true,
-				},
-			},
-			renderer = {
-				root_folder_label = false,
-				highlight_git = false,
-				highlight_opened_files = "none",
-
-				indent_markers = {
-					enable = true,
-				},
-
-				icons = {
-					show = {
-						file = true,
-						folder = true,
-						folder_arrow = true,
-						git = true,
-					},
-
-					glyphs = {
-						default = "󰈚",
-						symlink = "",
-						folder = {
-							default = "",
-							empty = "",
-							empty_open = "",
-							open = "",
-							symlink = "",
-							symlink_open = "",
-							arrow_open = "",
-							arrow_closed = "",
-						},
-						git = {
-							unstaged = "✗",
-							staged = "✓",
-							unmerged = "",
-							renamed = "➜",
-							untracked = "★",
-							deleted = "",
-							ignored = "◌",
-						},
-					},
-				},
-			},
-		},
-		config = function(_, opts)
-			-- dofile(vim.g.base46_cache .. "nvimtree")
-			require("nvim-tree").setup(opts)
-			-- nvimtree
-			vim.keymap.set("n", "<C-n>", "<cmd>NvimTreeToggle<CR>", { desc = "Nvimtree Toggle window" })
-			vim.keymap.set("n", "<leader>et", "<cmd>NvimTreeFocus<CR>", { desc = "Nvimtree Focus window" })
-		end,
 	},
 	{
 		"windwp/nvim-autopairs",
