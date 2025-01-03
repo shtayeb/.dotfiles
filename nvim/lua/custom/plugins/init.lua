@@ -8,7 +8,6 @@ return {
 		dir = "~/Code/django-projects/nvim-django-shell",
 		opts = {},
 	},
-
 	{
 		"nvim-neo-tree/neo-tree.nvim",
 		branch = "v3.x",
@@ -30,7 +29,9 @@ return {
 					hide_gitignored = false,
 					hide_dotfiles = false,
 				},
-				follow_current_file = true,
+				follow_current_file = {
+					enabled = true,
+				},
 			},
 		},
 		config = function(_, opts)
@@ -58,20 +59,7 @@ return {
 			{ "<leader>lg", "<cmd>LazyGit<cr>", desc = "LazyGit" },
 		},
 	},
-	{
-		"rose-pine/neovim",
-		name = "rose-pine",
-		config = function()
-			vim.cmd([[colorscheme rose-pine-moon]])
-		end,
-	},
-	{ "tiagovla/tokyodark.nvim" },
 	{ "tpope/vim-fugitive" },
-	{
-		"rebelot/kanagawa.nvim",
-		lazy = false, -- make sure we load this during startup if it is your main colorscheme
-		priority = 1000, -- make sure to load this before all the other start plugins
-	},
 	{
 		"windwp/nvim-autopairs",
 		opts = {

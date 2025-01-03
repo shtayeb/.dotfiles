@@ -95,13 +95,13 @@ M.setup = function()
       --    fg = M.colors.default.fg
       -- end
 
-      local has_unseen_output = false
-      for _, pane in ipairs(tab.panes) do
-         if pane.has_unseen_output then
-            has_unseen_output = true
-            break
-         end
-      end
+      -- local has_unseen_output = false
+      -- for _, pane in ipairs(tab.panes) do
+      --    if pane.has_unseen_output then
+      --       has_unseen_output = true
+      --       break
+      --    end
+      -- end
 
       -- Left semi-circle
       -- M.push(fg, bg, { Intensity = "Bold" }, GLYPH_SEMI_CIRCLE_LEFT)
@@ -122,10 +122,10 @@ M.setup = function()
       table.insert(M.cells, { Text = ' ' .. tab.tab_index + 1 .. is_zoomed .. ' '  })
 
       -- Unseen output alert
-      if has_unseen_output then
-         -- M.push(bg, "#FFA066", { Intensity = "Bold" }, " " .. GLYPH_CIRCLE)
-         table.insert(M.cells, { Text = " " .. GLYPH_CIRCLE })
-      end
+      -- if has_unseen_output then
+      --    -- M.push(bg, "#FFA066", { Intensity = "Bold" }, " " .. GLYPH_CIRCLE)
+      --    table.insert(M.cells, { Text = " " .. GLYPH_CIRCLE })
+      -- end
 
       -- Right padding
       -- M.push(bg, fg, { Intensity = "Bold" }, " ")
