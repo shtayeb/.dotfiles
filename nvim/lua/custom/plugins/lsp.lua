@@ -234,6 +234,7 @@ return {
 				"stylua", -- Used to format lua code
 				"gopls",
 				-- "mypy",
+				"intelephense",
 				"ruff",
 				"pyright",
 				"html-lsp",
