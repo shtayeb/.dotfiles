@@ -63,7 +63,7 @@ Function gsp { git stash pop $args }
 Function gpl { git pull $args }
 Function gpo { git push origin $args }
 Function gsh { git stash $args }
-
+Function gun { git rest --soft HEAD~1 }
 
 function Select-GitBranch {
     # Fetch the latest information from the remote repository
