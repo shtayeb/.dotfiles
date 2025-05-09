@@ -87,6 +87,11 @@ vim.g.loaded_netrwPlugin = 1
 -- optionally enable 24-bit colour
 vim.opt.termguicolors = true
 
+vim.o.tabstop = 4
+vim.o.shiftwidth = vim.o.tabstop
+vim.o.breakindent = true
+vim.o.viewoptions = "folds,cursor"
+
 -- My keymaps
 local is_windows = vim.fn.has("win32") ~= 0
 if is_windows then
