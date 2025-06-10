@@ -151,3 +151,37 @@ eval "$(zoxide init --cmd cd zsh)"
 # INSTALL: pip install thefuck
 # https://github.com/nvbn/thefuck?tab=readme-ov-file
 # eval $(thefuck --alias)
+
+# bun completions
+[ -s "/Users/shtb/.bun/_bun" ] && source "/Users/shtb/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+# pnpm
+export PNPM_HOME="/Users/shtb/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
+#
+
+function git-o() {
+  local url=$(git config --get remote.origin.url)
+  if [[ $url == git@* ]]; then
+    # Convert SSH URL to HTTPS
+    url=${url/git@/https:\/\/}
+    url=${url/:/\//}
+  fi
+  url=${url/.git/}
+  # For Linux, use xdg-open; on macOS, use open
+  if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+    xdg-open "$url"
+  elif [[ "$OSTYPE" == "darwin"* ]]; then
+    open "$url"
+  else
+    echo "Unsupported OS. Please open the URL manually: $url"
+  fi
+}

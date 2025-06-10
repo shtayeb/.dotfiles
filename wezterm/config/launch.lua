@@ -16,14 +16,8 @@ if platform.is_win then
          args = { 'C:\\Program Files\\Git\\bin\\bash.exe' },
       },
    }
-elseif platform.is_mac then
-   options.default_prog = { '/opt/homebrew/bin/fish' }
-   options.launch_menu = {
-      { label = 'Bash', args = { 'bash' } },
-      { label = 'Zsh', args = { 'zsh' } },
-   }
 else
-   options.default_prog = { 'zsh' }
+   options.default_prog = { '/usr/local/bin/zsh','-1' }
 end
 
 return options
