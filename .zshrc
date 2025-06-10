@@ -136,6 +136,7 @@ alias gpp="git stash pop"
 alias gpl="git pull"
 alias gpo="git push origin"
 alias gsh="git stash"
+alias gun="git reset --soft HEAD~1"
 
 # Eza (better ls)
 # Install eza: https://github.com/eza-community/eza/blob/main/INSTALL.md#debian-and-ubuntu
