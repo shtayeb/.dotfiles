@@ -118,8 +118,7 @@ zstyle ':fzf-tab:*' switch-group '<' '>'
 
 # aliases
 alias c='clear'
-alias bat="batcat"
-alias cat="batcat"
+alias cat="bat"
 
 alias a="php artisan"
 alias nr="npm run"
@@ -185,3 +184,6 @@ function git-o() {
     echo "Unsupported OS. Please open the URL manually: $url"
   fi
 }
+
+
+
