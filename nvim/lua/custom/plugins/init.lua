@@ -4,10 +4,10 @@
 -- See the kickstart.nvim README for more information
 return {
 	-- My plugins
-	{
-		dir = "~/Code/django-projects/nvim-django-shell",
-		opts = {},
-	},
+	-- {
+	-- 	dir = "~/Code/django-projects/nvim-django-shell",
+	-- 	opts = {},
+	-- },
 	-- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
 	{ "tpope/vim-sleuth" }, -- Detect tabstop and shiftwidth automatically
 
