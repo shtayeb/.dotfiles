@@ -217,6 +217,16 @@ return {
 						},
 					},
 				},
+				tailwindcss = {
+					-- init_options = { userLanguages = { templ = "html" } },
+					settings = {
+						tailwindCSS = {
+						  includeLanguages = {
+							templ = "html",
+						  },
+						},
+					},
+				},
 			}
 
 			-- Ensure the servers and tools above are installed
@@ -237,12 +247,12 @@ return {
 				"intelephense",
 				"ruff",
 				"pyright",
-				"html-lsp",
-				"tailwindcss-language-server",
+				"html",
+				-- "tailwindcss-language-server",
 				"templ",
 				"typescript-language-server",
 				"biome",
-				"emmet-language-server",
+				-- "emmet-language-server",
 			})
 			require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
@@ -261,5 +271,5 @@ return {
 		end,
 	},
 
-	{ "joerdav/templ.vim" },
+	-- { "joerdav/templ.vim" },
 }
