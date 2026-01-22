@@ -17,9 +17,8 @@ source "${ZINIT_HOME}/zinit.zsh"
 # End package manager
 
 
-# make all scripts in the scripts folder available
-export PATH=$PATH:~/.dotfiles/scripts:$PATH
-export PATH=$PATH:~/.local/bin:$PATH
+# make all scripts in ~/.local/bin available (managed by stow)
+export PATH=$PATH:~/.local/bin
 
 export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/Code
@@ -66,7 +65,6 @@ zinit light junegunn/fzf-git.sh
 
 # Add in snippets
 zinit snippet OMZP::git
-zinit snippet OMZP::sudo
 zinit snippet OMZP::sudo
 zinit snippet OMZP::command-not-found
 zinit snippet OMZP::charm
@@ -118,8 +116,8 @@ zstyle ':fzf-tab:*' switch-group '<' '>'
 
 # aliases
 alias c='clear'
-alias bat="batcat"
-alias cat="batcat"
+# alias bat="batcat"
+alias cat="bat"
 
 alias a="php artisan"
 alias nr="npm run"
@@ -185,3 +183,36 @@ function git-o() {
     echo "Unsupported OS. Please open the URL manually: $url"
   fi
 }
+
+# opencode
+export PATH=/Users/shtb/.opencode/bin:$PATH
+# The following lines have been added by Docker Desktop to enable Docker CLI completions.
+fpath=(/Users/shtb/.docker/completions $fpath)
+autoload -Uz compinit
+compinit
+# End of Docker CLI completions
+#
+
+export PATH="/Users/shtb/.config/herd-lite/bin:$PATH"
+export PHP_INI_SCAN_DIR="/Users/shtb/.config/herd-lite/bin:$PHP_INI_SCAN_DIR"
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/Users/shtb/.lmstudio/bin"
+# End of LM Studio CLI section
+
+export PATH="/opt/homebrew/opt/php@8.3/bin:$PATH"
+export PATH="/opt/homebrew/opt/php@8.3/sbin:$PATH"
+
+# alias -g og='| ollama run gemma3:12b'
+alias -g olg='| ollama run gemma3:4b'
+alias -g olgs='| ollama run gemma3:1b'
+
+alias -g opc='| opencode run --model anthropic/claude-3-5-sonnet-20240620'
+
+alias claude="/Users/shtb/.claude/local/claude"
+
+export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"  # Added by n-install (see http://git.io/n-install-repo).
+source "$HOME/.cargo/env"
+
+# Load machine-specific configuration
+[[ -f ~/.zshrc.local ]] && source ~/.zshrc.local

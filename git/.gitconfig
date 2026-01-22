@@ -1,0 +1,36 @@
+[user]
+    name = Shahryar Tayeb
+    email = shahryar.dev@gmail.com
+
+[init]
+    defaultBranch = main
+
+[core]
+    editor = nvim
+    pager = bat --paging=always
+
+[pull]
+    rebase = true
+
+[push]
+    autoSetupRemote = true
+
+[alias]
+    st = status
+    co = checkout
+    br = branch
+    ci = commit
+    lg = log --oneline --graph --decorate -20
+    last = log -1 HEAD --stat
+    unstage = reset HEAD --
+    amend = commit --amend --no-edit
+
+[diff]
+    colorMoved = default
+
+[merge]
+    conflictstyle = diff3
+
+# Include local overrides (work email, etc.)
+[include]
+    path = ~/.gitconfig.local
