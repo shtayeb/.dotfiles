@@ -1,0 +1,59 @@
+# Setup dotfiles using GNU Stow (user space)
+
+- name: Ensure dotfiles repo exists
+  stat:
+    path: "{{ home_dir }}/.dotfiles"
+  register: dotfiles_repo
+  tags: [install, dotfiles]
+
+- name: Clone dotfiles if not present
+  when: not dotfiles_repo.stat.exists
+  git:
+    repo: "https://github.com/shtayeb/.dotfiles.git"
+    dest: "{{ home_dir }}/.dotfiles"
+  tags: [install, dotfiles]
+
+- name: Remove existing config files that would conflict
+  file:
+    path: "{{ item }}"
+    state: absent
+  loop:
+    - "{{ home_dir }}/.zshrc"
+    - "{{ home_dir }}/.p10k.zsh"
+    - "{{ home_dir }}/.tmux.conf"
+    - "{{ home_dir }}/.gitconfig"
+  tags: [install, dotfiles]
+
+- name: Ensure .config directory exists
+  file:
+    path: "{{ home_dir }}/.config"
+    state: directory
+    mode: '0755'
+  tags: [install, dotfiles]
+
+- name: Ensure .local/bin directory exists
+  file:
+    path: "{{ home_dir }}/.local/bin"
+    state: directory
+    mode: '0755'
+  tags: [install, dotfiles]
+
+- name: Stow dotfiles packages
+  shell: stow -v {{ item }}
+  args:
+    chdir: "{{ home_dir }}/.dotfiles"
+  loop:
+    - zsh
+    - tmux
+    - nvim
+    - wezterm
+    - git
+    - scripts
+  register: stow_result
+  changed_when: stow_result.stdout != ""
+  tags: [install, dotfiles]
+
+- name: Display stow results
+  debug:
+    msg: "Stowed: {{ stow_result.results | map(attribute='item') | list }}"
+  tags: [install, dotfiles]

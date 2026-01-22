@@ -1,13 +1,22 @@
+# Clone personal repositories (user space)
+
+- name: Ensure Code directory exists
+  file:
+    path: "{{ home_dir }}/Code"
+    state: directory
+    mode: '0755'
+  tags: [git-personal]
+
 - name: Clone Django-Study-Buddy
-  ansible.builtin.git:
+  git:
     repo: https://github.com/shtayeb/Django-Studybudy-YT.git
-    dest: "{{ lookup('env', 'HOME') }}/Code/Django-StudyBuddy"
-  tags:
-    - git-personal
+    dest: "{{ home_dir }}/Code/Django-StudyBuddy"
+    update: no
+  tags: [git-personal]
 
 - name: Clone Go Organizer
-  ansible.builtin.git:
+  git:
     repo: https://github.com/shtayeb/Organizer-Script.git
-    dest: "{{ lookup('env', 'HOME') }}/Code/Go-Organizer"
-  tags:
-    - git-personal
+    dest: "{{ home_dir }}/Code/Go-Organizer"
+    update: no
+  tags: [git-personal]

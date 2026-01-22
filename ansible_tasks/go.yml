@@ -1,12 +1,55 @@
+# Install Go in user space (no sudo required)
+# Installs to ~/.local/go, binaries go to ~/go/bin
+
+- name: Check if Go is installed
+  stat:
+    path: "{{ home_dir }}/.local/go/bin/go"
+  register: go_installed
+  tags: [go, install]
+
 - name: Download Go tarball
-  become: yes
+  when: not go_installed.stat.exists
   get_url:
-    url: "https://golang.org/dl/go1.23.4.linux-amd64.tar.gz"
-    dest: "/tmp/go1.23.4.linux-amd64.tar.gz"
-    validate_certs: yes
-- name: Extract Go tarball
+    url: "https://golang.org/dl/go{{ go_version }}.linux-amd64.tar.gz"
+    dest: "/tmp/go{{ go_version }}.linux-amd64.tar.gz"
+    mode: '0644'
+  tags: [go, install]
+
+- name: Ensure .local directory exists
+  file:
+    path: "{{ home_dir }}/.local"
+    state: directory
+    mode: '0755'
+  tags: [go, install]
+
+- name: Extract Go tarball to ~/.local
+  when: not go_installed.stat.exists
   unarchive:
-    src: "/tmp/go1.23.4.linux-amd64.tar.gz"
-    dest: "/usr/local"
+    src: "/tmp/go{{ go_version }}.linux-amd64.tar.gz"
+    dest: "{{ home_dir }}/.local"
     remote_src: yes
-    creates: "/usr/local/go"
+  tags: [go, install]
+
+- name: Clean up tarball
+  file:
+    path: "/tmp/go{{ go_version }}.linux-amd64.tar.gz"
+    state: absent
+  tags: [go, install]
+
+- name: Ensure GOPATH bin directory exists
+  file:
+    path: "{{ home_dir }}/go/bin"
+    state: directory
+    mode: '0755'
+  tags: [go, install]
+
+- name: Verify Go installation
+  shell: "{{ home_dir }}/.local/go/bin/go version"
+  register: go_version_output
+  changed_when: false
+  tags: [go, install]
+
+- name: Display Go version
+  debug:
+    msg: "{{ go_version_output.stdout }}"
+  tags: [go, install]

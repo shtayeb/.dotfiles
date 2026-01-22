@@ -1,19 +1,79 @@
-- hosts: localhost
-  become: yes
+---
+- name: Setup Ubuntu Development Environment
+  hosts: localhost
+  connection: local
+
+  vars:
+    home_dir: "{{ lookup('env', 'HOME') }}"
+    local_bin: "{{ home_dir }}/.local/bin"
+    n_prefix: "{{ home_dir }}/n"
+    go_version: "1.23.4"
+
   pre_tasks:
-  - name: Update Cache
-    apt:
-      update_cache: true
+    - name: Ensure .local/bin exists
+      file:
+        path: "{{ local_bin }}"
+        state: directory
+        mode: '0755'
 
   tasks:
-    - include_tasks: ansible_tasks/core-setup.yml
-    - include_tasks: ansible_tasks/git-setup.yml
-    - include_tasks: ansible_tasks/zsh-setup.yml
-    - include_tasks: ansible_tasks/node-setup.yml
-    - include_tasks: ansible_tasks/npm-packages.yml
-    - include_tasks: ansible_tasks/productivity-tools.yml
-    - include_tasks: ansible_tasks/git-setup.yml
-    - include_tasks: ansible_tasks/my-repos.yml
-    - include_tasks: ansible_tasks/php-setup.yml
-    - include_tasks: ansible_tasks/go.yml
-    - include_tasks: ansible_tasks/nvim-setup.yml
+    # ============================================
+    # PRIVILEGED TASKS (apt installs, etc.)
+    # ============================================
+    - name: Update apt cache
+      become: true
+      apt:
+        update_cache: true
+        cache_valid_time: 3600
+      tags: [install, core]
+
+    - name: Install system packages (privileged)
+      include_tasks: ansible_tasks/core-setup.yml
+      tags: [install, core]
+
+    - name: Install zsh
+      include_tasks: ansible_tasks/zsh-setup.yml
+      tags: [install, zsh]
+
+    - name: Install productivity tools (apt)
+      include_tasks: ansible_tasks/productivity-tools.yml
+      tags: [install, productivity]
+
+    - name: Install PHP
+      include_tasks: ansible_tasks/php-setup.yml
+      tags: [install, php]
+
+    - name: Install GUI tools
+      include_tasks: ansible_tasks/gui-tools.yml
+      tags: [install, gui-tools]
+
+    # ============================================
+    # UNPRIVILEGED TASKS (user space installs)
+    # ============================================
+    - name: Setup dotfiles with stow
+      include_tasks: ansible_tasks/stow-setup.yml
+      tags: [install, dotfiles]
+
+    - name: Setup git config
+      include_tasks: ansible_tasks/git-setup.yml
+      tags: [install, git]
+
+    - name: Install Node.js (user space)
+      include_tasks: ansible_tasks/node-setup.yml
+      tags: [install, node]
+
+    - name: Install npm packages (user space)
+      include_tasks: ansible_tasks/npm-packages.yml
+      tags: [install, node]
+
+    - name: Install Go (user space)
+      include_tasks: ansible_tasks/go.yml
+      tags: [install, go]
+
+    - name: Build and install neovim
+      include_tasks: ansible_tasks/nvim-setup.yml
+      tags: [install, neovim]
+
+    - name: Clone personal repos
+      include_tasks: ansible_tasks/my-repos.yml
+      tags: [git-personal]

@@ -1,98 +1,90 @@
-- name: shutter ppa (universe)
-  become: true
-  shell: add-apt-repository universe
-  tags:
-    - gui-tools
+# GUI tools installation (requires sudo for apt)
 
-- name: Install packages
+- name: Add universe repository
   become: true
-  apt:
-    name: ["gimp", "screenkey", "shutter", "vlc","copyq"]
-  tags:
-    - gui-tools
+  shell: add-apt-repository -y universe
+  changed_when: false
+  tags: [gui-tools, install]
 
-- name: Install required packages
+- name: Install GUI packages
+  become: true
   apt:
     name:
+      - gimp
+      - screenkey
+      - shutter
+      - vlc
+      - copyq
       - wget
       - gpg
+      - apt-transport-https
     state: present
-  tags:
-    - gui-tools
+  tags: [gui-tools, install]
 
-- name: Download Microsoft GPG key
-  shell: wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
+# TablePlus
+- name: Add TablePlus GPG key
+  become: true
+  shell: wget -qO - https://deb.tableplus.com/apt.tableplus.com.gpg.key | gpg --dearmor -o /etc/apt/trusted.gpg.d/tableplus-archive.gpg
   args:
-    chdir: "{{ ansible_env.HOME }}"
-  tags:
-    - gui-tools
+    creates: /etc/apt/trusted.gpg.d/tableplus-archive.gpg
+  tags: [gui-tools, install]
 
-# Table plus installation
-- name: TablePlus GPG key
-  shell: wget -qO - https://deb.tableplus.com/apt.tableplus.com.gpg.key | gpg --dearmor | tee /etc/apt/trusted.gpg.d/tableplus-archive.gpg > /dev/null
-  tags:
-    - gui-tools
+- name: Add TablePlus repository
+  become: true
+  apt_repository:
+    repo: "deb [arch=amd64] https://deb.tableplus.com/debian/22 tableplus main"
+    state: present
+  tags: [gui-tools, install]
 
-- name: Add table plus repo
-  shell: add-apt-repository "deb [arch=amd64] https://deb.tableplus.com/debian/22 tableplus main"
-  tags:
-    - gui-tools
-
-- name: Update package cache
-  apt:
-    update_cache: yes
-  tags:
-    - gui-tools
-
-- name: Install tableplus
+- name: Install TablePlus
+  become: true
   apt:
     name: tableplus
     state: present
-  tags:
-    - gui-tools
+    update_cache: yes
+  tags: [gui-tools, install]
 
-# GPT: VS Code Installation (Could have used snap but it is going to be removed from ubuntu)
+# VS Code
+- name: Download Microsoft GPG key
+  get_url:
+    url: https://packages.microsoft.com/keys/microsoft.asc
+    dest: /tmp/microsoft.asc
+    mode: '0644'
+  tags: [gui-tools, install]
+
 - name: Install Microsoft GPG key
-  copy:
-    src: "{{ ansible_env.HOME }}/packages.microsoft.gpg"
-    dest: "/etc/apt/keyrings/packages.microsoft.gpg"
-    owner: root
-    group: root
-    mode: 0644
-  tags:
-    - gui-tools
+  become: true
+  shell: cat /tmp/microsoft.asc | gpg --dearmor -o /etc/apt/keyrings/packages.microsoft.gpg
+  args:
+    creates: /etc/apt/keyrings/packages.microsoft.gpg
+  tags: [gui-tools, install]
+
+- name: Ensure keyrings directory exists
+  become: true
+  file:
+    path: /etc/apt/keyrings
+    state: directory
+    mode: '0755'
+  tags: [gui-tools, install]
 
 - name: Add VS Code repository
-  lineinfile:
-    path: "/etc/apt/sources.list.d/vscode.list"
-    line: "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main"
-    create: yes
-  tags:
-    - gui-tools
-
-- name: Remove temporary GPG key file
-  file:
-    path: "{{ ansible_env.HOME }}/packages.microsoft.gpg"
-    state: absent
-  tags:
-    - gui-tools
-
-- name: Install apt-transport-https
-  apt:
-    name: apt-transport-https
+  become: true
+  apt_repository:
+    repo: "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main"
     state: present
-  tags:
-    - gui-tools
-
-- name: Update package cache
-  apt:
-    update_cache: yes
-  tags:
-    - gui-tools
+    filename: vscode
+  tags: [gui-tools, install]
 
 - name: Install VS Code
+  become: true
   apt:
     name: code
     state: present
-  tags:
-    - gui-tools
+    update_cache: yes
+  tags: [gui-tools, install]
+
+- name: Clean up temp files
+  file:
+    path: /tmp/microsoft.asc
+    state: absent
+  tags: [gui-tools, install]

@@ -1,61 +1,79 @@
-- name: Installation install software-properties-common
-  apt: name=software-properties-common
-  tags:
-    - php
+# PHP installation (requires sudo for apt)
+# Composer installed in user space (~/.local/bin)
 
-- name: "Repo PHP 8.3"
-  apt_repository:
-    repo="ppa:ondrej/php"
-  tags:
-    - php
-
-- name: "Updating the repo"
-  apt: update_cache=yes
-  tags:
-    - php
-
-- name: Installation PHP 8.3
-  apt: name=php8.3 state=present
-  tags:
-    - php
-
-- name: install lamp stack
+- name: Install software-properties-common
+  become: true
   apt:
-    pkg:
+    name: software-properties-common
+    state: present
+  tags: [php, install]
+
+- name: Add PHP 8.3 PPA
+  become: true
+  apt_repository:
+    repo: "ppa:ondrej/php"
+  tags: [php, install]
+
+- name: Update apt cache
+  become: true
+  apt:
+    update_cache: yes
+  tags: [php, install]
+
+- name: Install PHP 8.3 and extensions
+  become: true
+  apt:
+    name:
+      - php8.3
       - php8.3-sqlite3
       - php8.3-mysql
       - php8.3-pgsql
       - php8.3-curl
       - php8.3-cgi
       - php8.3-xsl
-      - php8.3-cgi
       - php8.3-gd
       - php8.3-mbstring
       - php8.3-zip
       - php8.3-xmlrpc
       - php8.3-soap
       - php8.3-intl
-      - libapache2-mod-php
+      - php8.3-xml
     state: present
-    update_cache: yes 
-  tags:
-    - php
-# Composer
-# Install Composer the lightweight way (without using installer)
-# https://getcomposer.org/download
-- name: Composer | Install Composer latest-stable
-  get_url:
-    url: 'https://getcomposer.org/download/latest-stable/composer.phar'
-    checksum: 'sha256:https://getcomposer.org/download/latest-stable/composer.phar.sha256sum'
-    dest: /usr/local/bin/composer.phar
-    mode: 0755
-  tags:
-    - php
+  tags: [php, install]
 
-- name: Composer | Symlink composer.phar
+# Composer - install in user space
+- name: Check if Composer is installed
+  stat:
+    path: "{{ local_bin }}/composer"
+  register: composer_installed
+  tags: [php, install]
+
+- name: Download Composer installer
+  when: not composer_installed.stat.exists
+  get_url:
+    url: 'https://getcomposer.org/installer'
+    dest: "/tmp/composer-setup.php"
+    mode: '0644'
+  tags: [php, install]
+
+- name: Install Composer to ~/.local/bin
+  when: not composer_installed.stat.exists
+  shell: php /tmp/composer-setup.php --install-dir={{ local_bin }} --filename=composer
+  tags: [php, install]
+
+- name: Clean up Composer installer
   file:
-    src: composer.phar
-    dest: /usr/local/bin/composer
-    state: link
-  tags:
-    - php
+    path: "/tmp/composer-setup.php"
+    state: absent
+  tags: [php, install]
+
+- name: Verify Composer installation
+  shell: "{{ local_bin }}/composer --version"
+  register: composer_version
+  changed_when: false
+  tags: [php, install]
+
+- name: Display Composer version
+  debug:
+    msg: "{{ composer_version.stdout }}"
+  tags: [php, install]

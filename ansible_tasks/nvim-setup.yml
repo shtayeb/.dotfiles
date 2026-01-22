@@ -1,58 +1,58 @@
-- name: Remove neovim
-  shell: rm -rf ~/neovim
-  tags:
-    - install
-    - neovim
-# install neovim
-- name: Clone Neovim
-  ansible.builtin.git:
+# Neovim build from source
+# Build is user space, only 'make install' needs sudo
+
+- name: Remove existing neovim build directory
+  file:
+    path: "{{ home_dir }}/neovim"
+    state: absent
+  tags: [install, neovim]
+
+- name: Clone Neovim repository
+  git:
     repo: "https://github.com/neovim/neovim.git"
-    dest: "{{ lookup('env', 'HOME') }}/neovim"
-  tags:
-    - install
-    - neovim
+    dest: "{{ home_dir }}/neovim"
+    depth: 1
+    version: stable
+  tags: [install, neovim]
 
 - name: Build neovim
-  shell: "cd {{ lookup('env', 'HOME') }}/neovim && make -j 20"
-  tags:
-    - install
-    - neovim
+  shell: make CMAKE_BUILD_TYPE=Release -j{{ ansible_processor_vcpus | default(4) }}
+  args:
+    chdir: "{{ home_dir }}/neovim"
+  tags: [install, neovim]
 
 - name: Install neovim
   become: true
-  shell: "cd {{ lookup('env', 'HOME') }}/neovim && make install"
-  tags:
-    - install
-    - neovim
-# TODO: do the installing of nvchad
-# - name: Install NvChad
-#   ansible.builtin.git:
-#     repo: "https://github.com/NvChad/NvChad"
-#     dest: "{{ lookup('env', 'HOME') }}/.config/nvim"
-#   tags:
-#     - install
-#     - neovim
-# link the nvim/custom to neovim - this requires this .dofiles repo to be presen in the $HOME
-- name: Link nvim
-  shell: "ln -s {{ lookup('env', 'HOME') }}/.dotfiles/nvim {{ lookup('env', 'HOME') }}/.config/nvim"
-  tags:
-    - install
-    - neovim
+  shell: make install
+  args:
+    chdir: "{{ home_dir }}/neovim"
+  tags: [install, neovim]
 
-# Install NerdFont Jebrains Mono
-- name: ensure fonts directory
+# JetBrains Mono Nerd Font (user space)
+- name: Ensure fonts directory exists
   file:
-    path: "{{ lookup('env', 'HOME') }}/.fonts"
+    path: "{{ home_dir }}/.fonts"
     state: directory
+    mode: '0755'
+  tags: [install, neovim]
 
-- name: Hack exists
-  shell: "ls {{ lookup('env', 'HOME') }}/.fonts/JetBrainsMono*"
-  register: hack_exists
-  ignore_errors: yes
+- name: Check if JetBrains Mono exists
+  find:
+    paths: "{{ home_dir }}/.fonts"
+    patterns: "JetBrainsMono*"
+  register: jetbrains_font
+  tags: [install, neovim]
 
-- name: Download Hack
-  when: hack_exists is failed
-  ansible.builtin.unarchive:
+- name: Download JetBrains Mono Nerd Font
+  when: jetbrains_font.matched == 0
+  unarchive:
     src: https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/JetBrainsMono.zip
-    dest: "{{ lookup('env', 'HOME') }}/.fonts/"
+    dest: "{{ home_dir }}/.fonts/"
     remote_src: yes
+  tags: [install, neovim]
+
+- name: Refresh font cache
+  when: jetbrains_font.matched == 0
+  shell: fc-cache -fv
+  changed_when: false
+  tags: [install, neovim]

@@ -1,20 +1,35 @@
-- name: Install Node
-  apt:
-    name: ["nodejs", "npm"]
-  tags:
-    - node
-    - install
+# Install Node.js in user space using n (no sudo required)
+# n-install: https://github.com/mklement0/n-install
 
-- name: Install n
-  npm:
-    name: n
-    global: true
-  tags:
-    - node
-    - install
+- name: Check if n is installed
+  stat:
+    path: "{{ n_prefix }}/bin/n"
+  register: n_installed
+  tags: [node, install]
 
-- name: node v latest
-  shell: n latest
-  tags:
-    - node
-    - install
+- name: Install n (Node version manager)
+  when: not n_installed.stat.exists
+  shell: |
+    curl -fsSL https://raw.githubusercontent.com/mklement0/n-install/stable/bin/n-install | bash -s -- -y -n
+  args:
+    creates: "{{ n_prefix }}/bin/n"
+  environment:
+    N_PREFIX: "{{ n_prefix }}"
+  tags: [node, install]
+
+- name: Install latest LTS Node.js
+  shell: "{{ n_prefix }}/bin/n lts"
+  environment:
+    N_PREFIX: "{{ n_prefix }}"
+  tags: [node, install]
+
+- name: Verify Node installation
+  shell: "{{ n_prefix }}/bin/node --version"
+  register: node_version
+  changed_when: false
+  tags: [node, install]
+
+- name: Display Node version
+  debug:
+    msg: "Node.js {{ node_version.stdout }} installed in {{ n_prefix }}"
+  tags: [node, install]

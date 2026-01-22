@@ -1,31 +1,29 @@
-- name: Install eslint
-  npm:
-    name: eslint
-    global: yes
-  tags:
-    - install
-    - node
+# Install npm packages globally (in user space via n)
+# No sudo required - packages install to $N_PREFIX/lib/node_modules
 
-- name: Install Typescript server
-  npm:
-    name: typescript-language-server
-    global: yes
-  tags:
-    - install
-    - node
+- name: Install global npm packages
+  shell: "{{ n_prefix }}/bin/npm install -g {{ item }}"
+  environment:
+    N_PREFIX: "{{ n_prefix }}"
+    PATH: "{{ n_prefix }}/bin:{{ ansible_env.PATH }}"
+  loop:
+    - eslint
+    - typescript
+    - typescript-language-server
+    - ts-node
+    - prettier
+  tags: [install, node]
 
-- name: Install Typescript
-  npm:
-    name: typescript
-    global: yes
-  tags:
-    - install
-    - node
+- name: Verify npm packages
+  shell: "{{ n_prefix }}/bin/npm list -g --depth=0"
+  environment:
+    N_PREFIX: "{{ n_prefix }}"
+    PATH: "{{ n_prefix }}/bin:{{ ansible_env.PATH }}"
+  register: npm_packages
+  changed_when: false
+  tags: [install, node]
 
-- name: Install TS-Node
-  npm:
-    name: ts-node
-    global: yes
-  tags:
-    - install
-    - node
+- name: Display installed packages
+  debug:
+    msg: "{{ npm_packages.stdout_lines }}"
+  tags: [install, node]

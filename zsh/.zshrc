@@ -23,10 +23,10 @@ export PATH=$PATH:~/.local/bin
 export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/Code
 
-# export GOROOT=/usr/local/go
+# Go (installed to ~/.local/go by ansible)
+export GOROOT=$HOME/.local/go
 export GOPATH=$HOME/go
 export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
-export PATH=$PATH:/usr/local/go/bin
 
 export FLYCTL_INSTALL="~/.fly"
 export PATH="$FLYCTL_INSTALL/bin:$PATH"
@@ -151,14 +151,14 @@ eval "$(zoxide init --cmd cd zsh)"
 # eval $(thefuck --alias)
 
 # bun completions
-[ -s "/Users/shtb/.bun/_bun" ] && source "/Users/shtb/.bun/_bun"
+[ -s "~/.bun/_bun" ] && source "~/.bun/_bun"
 
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
 # pnpm
-export PNPM_HOME="/Users/shtb/Library/pnpm"
+export PNPM_HOME="~/Library/pnpm"
 case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;
   *) export PATH="$PNPM_HOME:$PATH" ;;
@@ -185,19 +185,19 @@ function git-o() {
 }
 
 # opencode
-export PATH=/Users/shtb/.opencode/bin:$PATH
+export PATH=~/.opencode/bin:$PATH
 # The following lines have been added by Docker Desktop to enable Docker CLI completions.
-fpath=(/Users/shtb/.docker/completions $fpath)
+fpath=(~/.docker/completions $fpath)
 autoload -Uz compinit
 compinit
 # End of Docker CLI completions
 #
 
-export PATH="/Users/shtb/.config/herd-lite/bin:$PATH"
-export PHP_INI_SCAN_DIR="/Users/shtb/.config/herd-lite/bin:$PHP_INI_SCAN_DIR"
+export PATH="~/.config/herd-lite/bin:$PATH"
+export PHP_INI_SCAN_DIR="~/.config/herd-lite/bin:$PHP_INI_SCAN_DIR"
 
 # Added by LM Studio CLI (lms)
-export PATH="$PATH:/Users/shtb/.lmstudio/bin"
+export PATH="$PATH:~/.lmstudio/bin"
 # End of LM Studio CLI section
 
 export PATH="/opt/homebrew/opt/php@8.3/bin:$PATH"
@@ -209,7 +209,7 @@ alias -g olgs='| ollama run gemma3:1b'
 
 alias -g opc='| opencode run --model anthropic/claude-3-5-sonnet-20240620'
 
-alias claude="/Users/shtb/.claude/local/claude"
+alias claude="~/.claude/local/claude"
 
 export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"  # Added by n-install (see http://git.io/n-install-repo).
 source "$HOME/.cargo/env"

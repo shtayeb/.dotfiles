@@ -1,52 +1,44 @@
+# Zsh installation and setup
+
 - name: Install zsh
-  apt: name=zsh
-  tags: &tags_for_zsh_tasks ["install", "productivity", "zsh"]
-
-- name: Change shell
   become: true
-  shell: chsh -s $(which zsh)
-  tags: *tags_for_zsh_tasks
+  apt:
+    name: zsh
+    state: present
+  tags: [install, zsh]
 
-- name: ensure fonts directory
+- name: Change default shell to zsh
+  become: true
+  user:
+    name: "{{ ansible_user_id }}"
+    shell: /usr/bin/zsh
+  tags: [install, zsh]
+
+# Fonts (user space)
+- name: Ensure fonts directory exists
   file:
-    path: "{{ lookup('env', 'HOME') }}/.fonts"
+    path: "{{ home_dir }}/.fonts"
     state: directory
+    mode: '0755'
+  tags: [install, zsh]
 
-- name: Hack exists
-  shell: "ls {{ lookup('env', 'HOME') }}/.fonts/Hack*Nerd*Font*Complete*"
-  register: hack_exists
-  ignore_errors: yes
+- name: Check if Hack Nerd Font exists
+  find:
+    paths: "{{ home_dir }}/.fonts"
+    patterns: "Hack*Nerd*"
+  register: hack_font
+  tags: [install, zsh]
 
-- name: Download Hack
-  when: hack_exists is failed
-  ansible.builtin.unarchive:
-    src: https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/Hack.zip
-    dest: "{{ lookup('env', 'HOME') }}/.fonts/"
+- name: Download Hack Nerd Font
+  when: hack_font.matched == 0
+  unarchive:
+    src: https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/Hack.zip
+    dest: "{{ home_dir }}/.fonts/"
     remote_src: yes
+  tags: [install, zsh]
 
-# - name: Install Oh My Zsh # noqa: latest
-#   shell: sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
-#   tags: *tags_for_zsh_tasks
-
-# - name: Install zsh-autosuggestions plugin # noqa: latest
-#   ansible.builtin.git:
-#     repo: https://github.com/zsh-users/zsh-autosuggestions
-#     dest: "{{ lookup('env', 'HOME') }}/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
-#   tags: *tags_for_zsh_tasks
-
-# - name: Install zsh-completions plugin # noqa: latest
-#   ansible.builtin.git:
-#     repo: https://github.com/zsh-users/zsh-completions
-#     dest: "{{ lookup('env', 'HOME') }}/.oh-my-zsh/custom/plugins/zsh-completions"
-#   tags: *tags_for_zsh_tasks
-
-# - name: Install zsh-syntax-highlighting plugin # noqa: latest
-#   ansible.builtin.git:
-#     repo: https://github.com/zsh-users/zsh-syntax-highlighting.git
-#     dest: "{{ lookup('env', 'HOME') }}/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting"
-#   tags: *tags_for_zsh_tasks
-
-# Add plugins in to the .zshrc file (Junkie - probally should have a .zshrc in this repo)
-# - name: Add plugins name to the .zshrc file
-#   shell: sed -i 's/(git/(git zsh-autosuggestions zsh-syntax-highlighting/' ~/.zshrc
-#   tags: *tags_for_zsh_tasks
+- name: Refresh font cache
+  when: hack_font.matched == 0
+  shell: fc-cache -fv
+  changed_when: false
+  tags: [install, zsh]

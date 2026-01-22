@@ -1,14 +1,31 @@
-- name: Git personal setup email
+# Git configuration (user space)
+# Note: Primary config is in git/.gitconfig, managed by stow
+# This task sets up additional git configuration if needed
+
+- name: Set git user email
   git_config:
     name: user.email
     scope: global
     value: "shahryar.dev@gmail.com"
-  tags:
-    - git-personal
-- name: Git personal setup name
+  tags: [install, git]
+
+- name: Set git user name
   git_config:
     name: user.name
     scope: global
     value: "Shahryar Tayeb"
-  tags:
-    - git-personal
+  tags: [install, git]
+
+- name: Set git default branch
+  git_config:
+    name: init.defaultBranch
+    scope: global
+    value: "main"
+  tags: [install, git]
+
+- name: Set git pull rebase
+  git_config:
+    name: pull.rebase
+    scope: global
+    value: "true"
+  tags: [install, git]

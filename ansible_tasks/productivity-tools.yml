@@ -1,36 +1,18 @@
-- name: Install packages
+# Productivity tools (apt packages require sudo)
+
+- name: Install productivity packages
   become: true
   apt:
-    name: ["tmux", "xclip", "tldr", "ripgrep","bat","sqlite3","fzf"]
-  tags:
-    - install
-    - productivity
-
-- name: Install packages
-  apt:
-    name: ["gpg"]
-  tags:
-    - install
-    - productivity
-
-# - name: Install fzf
-#   ansible.builtin.git:
-#     repo: https://github.com/junegunn/fzf.git
-#     dest: "{{ lookup('env', 'HOME') }}/.fzf"
-#   tags:
-#     - install
-#     - productivity
-
-# - name: Install fzf-git plugin
-#   ansible.builtin.git:
-#     repo: https://github.com/junegunn/fzf-git.sh.git
-#     dest: "{{ lookup('env', 'HOME') }}/fzf-git.sh"
-#   tags:
-#     - install
-#     - productivity
-
-# - name: Install fzf from repo
-#   shell: "{{ lookup('env', 'HOME') }}/.fzf/install"
-#   register: hack_exists
-#   ignore_errors: yes
-
+    name:
+      - tmux
+      - xclip
+      - tldr
+      - ripgrep
+      - bat
+      - sqlite3
+      - fzf
+      - gpg
+      - zoxide
+      - eza
+    state: present
+  tags: [install, productivity]
