@@ -116,7 +116,6 @@ zstyle ':fzf-tab:*' switch-group '<' '>'
 
 # aliases
 alias c='clear'
-# alias bat="batcat"
 alias cat="bat"
 
 alias a="php artisan"
